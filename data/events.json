@@ -6,7 +6,7 @@
     "date": "Lunes 28 de julio del 2025",
     "time": "8:00 PM",
     "image": "https://prod.cosm-cdn.io/venue-events/Sports/WWE/03_03_monday_raw/Program/All_Venues/Event_Assets/Event_Images/WWE-RAW-generic.webp",
-    "streamUrl": "https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://cables-shake-survival-legs.trycloudflare.com/live/wwe.m3u8",
+    "streamUrl": "https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://cables-shake-survival-legs.trycloudflare.com/live/611613.m3u8",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "WWE"
   },
