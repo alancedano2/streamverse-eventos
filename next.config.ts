@@ -96,14 +96,26 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
-      // --- ¡NUEVO HOSTNAME AÑADIDO! ---
       {
         protocol: 'https',
         hostname: 'is1-ssl.mzstatic.com',
         port: '',
         pathname: '/image/thumb/**',
       },
-      // --- FIN NUEVO HOSTNAME ---
+      // --- NUEVOS HOSTNAMES AÑADIDOS ---
+      {
+        protocol: 'https',
+        hostname: 'lastwordonsports.com',
+        port: '',
+        pathname: '/prowrestling/wp-content/uploads/sites/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.al.com',
+        port: '',
+        pathname: '/resizer/v2/**',
+      },
+      // --- FIN NUEVOS HOSTNAMES ---
     ],
   },
 };
