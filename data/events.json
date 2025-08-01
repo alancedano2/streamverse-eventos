@@ -6,7 +6,7 @@
     "date": "Viernes 1 de agosto del 2025",
     "time": "5:00 PM",
     "image": "https://i.ytimg.com/vi/OSAu9kRAWXs/hq720.jpg?v=6877fcf4&sqp=CODgqcQG-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLC_rCKl_koRMsG7wGfZsMJvcS42Fg",
-    "streamUrl": "https://cables-shake-survival-legs.trycloudflare.com/live/611613.m3u8",
+    "streamUrl": "https://salad-sunny-ok-parameter.trycloudflare.com/LiveApp/streams/kick-off-wwe.m3u8",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "WWE"
   },
@@ -18,7 +18,7 @@
     "time": "8:00 PM",
     "image": "https://lastwordonsports.com/prowrestling/wp-content/uploads/sites/15/2025/03/wwe-smackdown-graphic.jpeg",
     "streamUrl": "https://salad-sunny-ok-parameter.trycloudflare.com/LiveApp/streams/wwe-smackdownlive.m3u8",
-    "streamUrl2": "https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://hz-possible-vsnet-spray.trycloudflare.com/live/610888.m3u8",
+    "streamUrl2": "https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://hz-possible-vsnet-spray.trycloudflare.com/live/218703.m3u8",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "WWE"
   },
@@ -30,7 +30,7 @@
     "time": "6:00 PM",
     "image": "https://www.al.com/resizer/v2/A6X6MLXRSRDWBK6Z75SUKQLQQE.jpg?auth=dd4d106db8812428396b183b30f0e3071f0ccdd8e0e7864c45d0bc9d614a3c13&width=1280&quality=90",
     "streamUrl": "https://salad-sunny-ok-parameter.trycloudflare.com/LiveApp/streams/wwe-summerslam-day1.m3u8",
-    "streamUrl2": "https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://hz-possible-vsnet-spray.trycloudflare.com/live/610888.m3u8",
+    "streamUrl2": "https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://hz-possible-vsnet-spray.trycloudflare.com/live/{ID}.m3u8",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "WWE"
   },
@@ -42,7 +42,7 @@
     "time": "6:00 PM",
     "image": "https://www.al.com/resizer/v2/A6X6MLXRSRDWBK6Z75SUKQLQQE.jpg?auth=dd4d106db8812428396b183b30f0e3071f0ccdd8e0e7864c45d0bc9d614a3c13&width=1280&quality=90",
     "streamUrl": "https://salad-sunny-ok-parameter.trycloudflare.com/LiveApp/streams/wwe-summerslam-day1.m3u8",
-    "streamUrl2": "https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://hz-possible-vsnet-spray.trycloudflare.com/live/610888.m3u8",
+    "streamUrl2": "https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://hz-possible-vsnet-spray.trycloudflare.com/live/{ID}.m3u8",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "MLS"
   }
