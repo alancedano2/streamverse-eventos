@@ -102,7 +102,6 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/image/thumb/**',
       },
-      // --- NUEVOS HOSTNAMES AÑADIDOS ---
       {
         protocol: 'https',
         hostname: 'lastwordonsports.com',
@@ -115,7 +114,14 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/resizer/v2/**',
       },
-      // --- FIN NUEVOS HOSTNAMES ---
+      // --- ¡NUEVO HOSTNAME AÑADIDO! ---
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
+        port: '',
+        pathname: '/vi/**',
+      },
+      // --- FIN NUEVO HOSTNAME ---
     ],
   },
 };
