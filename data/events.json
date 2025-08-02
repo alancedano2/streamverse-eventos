@@ -1,36 +1,12 @@
 [
   {
-    "id": "kickoff-summerslam",
-    "title": "KickOff of WWE SummerSlam 2025",
-    "description": "WWE Superstars kick off The Biggest Party of the Summer in New Jersey on the eve of the first two-night SummerSlam in WWE history.",
-    "date": "Viernes 1 de agosto del 2025",
-    "time": "5:00 PM",
-    "image": "https://i.ytimg.com/vi/OSAu9kRAWXs/hq720.jpg?v=6877fcf4&sqp=CODgqcQG-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLC_rCKl_koRMsG7wGfZsMJvcS42Fg",
-    "streamUrl": "https://salad-sunny-ok-parameter.trycloudflare.com/LiveApp/streams/kick-off-wwe.m3u8",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "WWE"
-  },
-  {
-    "id": "wwe-smackdown",
-    "title": "WWE SmackDown",
-    "description": "¡La noche de los Viernes se enciende con WWE SmackDown!",
-    "date": "Viernes 1 de agosto del 2025",
-    "time": "8:00 PM",
-    "image": "https://lastwordonsports.com/prowrestling/wp-content/uploads/sites/15/2025/03/wwe-smackdown-graphic.jpeg",
-    "streamUrl": "https://salad-sunny-ok-parameter.trycloudflare.com/LiveApp/streams/wwe-smackdownlive.m3u8",
-    "streamUrl2": "https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://hz-possible-vsnet-spray.trycloudflare.com/live/218703.m3u8",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "WWE"
-  },
-  {
     "id": "wwe-summerslam-day1",
     "title": "WWE SummerSlam Day 1",
     "description": "WWE SummerSlam Day 1 marca el inicio del evento más caliente del verano, con emocionantes combates, regresos inesperados y rivalidades al máximo nivel. Una noche llena de acción, drama y espectáculo al estilo WWE.",
     "date": "Sabado 2 de agosto del 2025",
     "time": "6:00 PM",
     "image": "https://www.al.com/resizer/v2/A6X6MLXRSRDWBK6Z75SUKQLQQE.jpg?auth=dd4d106db8812428396b183b30f0e3071f0ccdd8e0e7864c45d0bc9d614a3c13&width=1280&quality=90",
-    "streamUrl": "https://salad-sunny-ok-parameter.trycloudflare.com/LiveApp/streams/wwe-summerslam-day1.m3u8",
-    "streamUrl2": "https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://hz-possible-vsnet-spray.trycloudflare.com/live/{ID}.m3u8",
+    "streamUrl": "https://secret-phantom-workstation-zero.trycloudflare.com/LiveApp/streams/wwe-summerslam-day1.m3u8",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "WWE"
   },
@@ -41,9 +17,9 @@
     "date": "Domingo 2 de agosto del 2025",
     "time": "6:00 PM",
     "image": "https://www.al.com/resizer/v2/A6X6MLXRSRDWBK6Z75SUKQLQQE.jpg?auth=dd4d106db8812428396b183b30f0e3071f0ccdd8e0e7864c45d0bc9d614a3c13&width=1280&quality=90",
-    "streamUrl": "https://salad-sunny-ok-parameter.trycloudflare.com/LiveApp/streams/wwe-summerslam-day1.m3u8",
-    "streamUrl2": "https://mediaexternalproxy.fraelvillegasplay8.workers.dev/?url=https://hz-possible-vsnet-spray.trycloudflare.com/live/{ID}.m3u8",
+    "streamUrl": "https://secret-phantom-workstation-zero.trycloudflare.com/LiveApp/streams/wwe-summerslam-day2.m3u8",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "MLS"
   }
 ]
+
