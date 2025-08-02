@@ -15,7 +15,6 @@ interface Evento {
   time: string;
   image: string;
   streamUrl: string;
-  streamUrl2?: string; // Add this line
   fallbackMp4Url?: string;
   league: string;
 }
@@ -82,32 +81,18 @@ export default function EventoDetailPage() {
             )}
           </div>
 
-          {(evento.streamUrl || evento.streamUrl2) && (
+          {evento.streamUrl && (
             <div className="flex justify-center gap-4 p-4 bg-gray-900 border-t border-gray-700">
-              {evento.streamUrl && (
-                <button
-                  onClick={() => setCurrentStreamUrl(evento.streamUrl)}
-                  className={`py-2 px-6 rounded-lg font-bold transition duration-300 ease-in-out ${
-                    currentStreamUrl === evento.streamUrl
-                      ? 'bg-blue-600 text-white shadow-lg'
-                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                  }`}
-                >
-                  Opción 1
-                </button>
-              )}
-              {evento.streamUrl2 && (
-                <button
-                  onClick={() => setCurrentStreamUrl(evento.streamUrl2)}
-                  className={`py-2 px-6 rounded-lg font-bold transition duration-300 ease-in-out ${
-                    currentStreamUrl === evento.streamUrl2
-                      ? 'bg-blue-600 text-white shadow-lg'
-                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                  }`}
-                >
-                  Opción 2
-                </button>
-              )}
+              <button
+                onClick={() => setCurrentStreamUrl(evento.streamUrl)}
+                className={`py-2 px-6 rounded-lg font-bold transition duration-300 ease-in-out ${
+                  currentStreamUrl === evento.streamUrl
+                    ? 'bg-blue-600 text-white shadow-lg'
+                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                }`}
+              >
+                Opción 1
+              </button>
             </div>
           )}
         </div>
@@ -124,7 +109,7 @@ export default function EventoDetailPage() {
           </p>
 
           <div className="mt-auto">
-            {!evento.streamUrl && !evento.streamUrl2 && (
+            {!evento.streamUrl && (
               <p className="text-yellow-500 text-center text-lg font-medium">
                 No hay streams asociados a este evento.
               </p>
@@ -135,5 +120,3 @@ export default function EventoDetailPage() {
     </div>
   );
 }
-
-
