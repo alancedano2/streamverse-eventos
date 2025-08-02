@@ -15,7 +15,8 @@ interface Evento {
   time: string;
   image: string;
   streamUrl: string;
-  fallbackMp4Url?: string; // Add this line
+  streamUrl2?: string; // Add this line
+  fallbackMp4Url?: string;
   league: string;
 }
 
@@ -134,4 +135,5 @@ export default function EventoDetailPage() {
     </div>
   );
 }
+
 
