@@ -54,8 +54,6 @@
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "WWE"
   },
-
-  // MLB Playoffs
   {
     "id": "mlb-wc1-2025",
     "title": "MLB Wild Card Game 1",
@@ -122,8 +120,6 @@
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "MLB"
   },
-
-  // NBA Preseason
   {
     "id": "nba-knicks-76ers-abu-dhabi1",
     "title": "NBA Preseason - Knicks vs 76ers",
@@ -202,3 +198,4 @@
     "league": "NBA"
   }
 ]
+
