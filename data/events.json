@@ -5,7 +5,7 @@
     "description": "Partido de temporada regular de MLB.",
     "date": "Sabado 1 de noviembre del 2025",
     "time": "8:00 PM",
-    "image": "https://upload.wikimedia.org/wikipedia/en/a/a6/Major_League_Baseball_logo.svg",
+    "image": "https://s.secure.espncdn.com/stitcher/artwork/16x9.jpg?height=720&width=1280&cb=12&templateId=espn.core.dtc.large.16x9.1&source=https://artwork.espncdn.com/events/401472527/16x9/1280x720_20230623233637.jpg&showBadge=true&package=ESPN_PLUS_MLB",
     "streamUrl": "https://lil-brought-joy-pete.trycloudflare.com//LiveApp/streams/mlb-ppv.m3u8",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "MLB"
@@ -16,10 +16,11 @@
     "description": "Evento de lucha libre profesional de WWE.",
     "date": "Sabado 1 de noviembre del 2025",
     "time": "7:00 PM",
-    "image": "https://upload.wikimedia.org/wikipedia/en/4/41/Saturday_Night%27s_Main_Event_logo.png",
+    "image": "https://www.wwe.com/f/styles/wwe_16_9_xl/public/2025/10/20251017_SNME_Match_CodyDrew_16x9_Date.jpg",
     "streamUrl": "https://lil-brought-joy-pete.trycloudflare.com//LiveApp/streams/wwe-ple.m3u8",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "WWE"
   }
 ]
+
 
