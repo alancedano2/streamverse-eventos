@@ -1,201 +1,24 @@
 [
   {
-    "id": "wwe-crown-jewel-2025",
-    "title": "WWE Crown Jewel 2025",
-    "description": "Evento premium de WWE celebrado en Perth, Australia, con combates espectaculares y grandes superestrellas en acción.",
-    "date": "Sabado 11 de octubre del 2025",
-    "time": "1:00 PM",
-    "image": "https://upload.wikimedia.org/wikipedia/en/2/27/WWE_Crown_Jewel_logo.png",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "WWE"
-  },
-  {
-    "id": "wwe-halloween-havoc-2025",
-    "title": "WWE NXT Halloween Havoc 2025",
-    "description": "El clásico evento temático de NXT con luchas intensas, sorpresas y toda la atmósfera de Halloween.",
-    "date": "Sabado 25 de octubre del 2025",
-    "time": "7:00 PM",
-    "image": "https://upload.wikimedia.org/wikipedia/en/7/73/Halloween_Havoc_2020_logo.png",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "WWE"
-  },
-  {
-    "id": "wwe-snme-xli",
-    "title": "WWE Saturday Night’s Main Event XLI",
-    "description": "Evento especial televisado desde Salt Lake City, con las superestrellas de WWE en acción.",
+    "id": "mlb-bluejays-dodgers",
+    "title": "MLB: Toronto Blue Jays vs. Los Angeles Dodgers",
+    "description": "Partido de temporada regular de MLB.",
     "date": "Sabado 1 de noviembre del 2025",
     "time": "8:00 PM",
-    "image": "https://upload.wikimedia.org/wikipedia/en/4/41/Saturday_Night%27s_Main_Event_logo.png",
+    "image": "https://upload.wikimedia.org/wikipedia/en/a/a6/Major_League_Baseball_logo.svg",
     "streamUrl": "",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "WWE"
+    "league": "MLB"
   },
   {
-    "id": "wwe-survivor-series-2025",
-    "title": "WWE Survivor Series: WarGames 2025",
-    "description": "El tradicional evento Survivor Series con la espectacular modalidad WarGames, desde San Diego, California.",
-    "date": "Sabado 29 de noviembre del 2025",
+    "id": "wwe-snme",
+    "title": "WWE: Saturday Night Main Event",
+    "description": "Evento de lucha libre profesional de WWE.",
+    "date": "Sabado 1 de noviembre del 2025",
     "time": "7:00 PM",
-    "image": "https://upload.wikimedia.org/wikipedia/en/e/ed/WWE_Survivor_Series_logo.png",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "WWE"
-  },
-  {
-    "id": "wwe-snme-xlii",
-    "title": "WWE Saturday Night’s Main Event XLII",
-    "description": "Evento histórico desde Washington, D.C., que incluye el combate de retiro de John Cena.",
-    "date": "Sabado 13 de diciembre del 2025",
-    "time": "8:00 PM",
     "image": "https://upload.wikimedia.org/wikipedia/en/4/41/Saturday_Night%27s_Main_Event_logo.png",
     "streamUrl": "",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "WWE"
-  },
-  {
-    "id": "mlb-wc1-2025",
-    "title": "MLB Wild Card Game 1",
-    "description": "Juego de Wild Card #2 @ #1",
-    "date": "Miercoles 1 de octubre del 2025",
-    "time": "1:00 AM",
-    "image": "https://upload.wikimedia.org/wikipedia/en/a/a6/Major_League_Baseball_logo.svg",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "MLB"
-  },
-  {
-    "id": "mlb-wc2-2025",
-    "title": "MLB Wild Card Game 2",
-    "description": "Juego de Wild Card #3 @ Div. Winner #3",
-    "date": "Miercoles 1 de octubre del 2025",
-    "time": "1:00 AM",
-    "image": "https://upload.wikimedia.org/wikipedia/en/a/a6/Major_League_Baseball_logo.svg",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "MLB"
-  },
-  {
-    "id": "mlb-div1-2025",
-    "title": "MLB Divisional Round",
-    "description": "Lower WC Winner @ Div. Winner #1",
-    "date": "Sabado 4 de octubre del 2025",
-    "time": "1:00 AM",
-    "image": "https://upload.wikimedia.org/wikipedia/en/a/a6/Major_League_Baseball_logo.svg",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "MLB"
-  },
-  {
-    "id": "mlb-div2-2025",
-    "title": "MLB Divisional Round",
-    "description": "Higher WC Winner @ Div. Winner #2",
-    "date": "Sabado 4 de octubre del 2025",
-    "time": "1:00 AM",
-    "image": "https://upload.wikimedia.org/wikipedia/en/a/a6/Major_League_Baseball_logo.svg",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "MLB"
-  },
-  {
-    "id": "mlb-lcs1-2025",
-    "title": "MLB League Championship Series",
-    "description": "Juego 1 LCS (Liga Americana o Nacional)",
-    "date": "Viernes 24 de octubre del 2025",
-    "time": "1:00 AM",
-    "image": "https://upload.wikimedia.org/wikipedia/en/a/a6/Major_League_Baseball_logo.svg",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "MLB"
-  },
-  {
-    "id": "mlb-lcs2-2025",
-    "title": "MLB League Championship Series",
-    "description": "Juego 2 LCS",
-    "date": "Sabado 25 de octubre del 2025",
-    "time": "1:00 AM",
-    "image": "https://upload.wikimedia.org/wikipedia/en/a/a6/Major_League_Baseball_logo.svg",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "MLB"
-  },
-  {
-    "id": "nba-knicks-76ers-abu-dhabi1",
-    "title": "NBA Preseason - Knicks vs 76ers",
-    "description": "Juego internacional en Abu Dhabi.",
-    "date": "Jueves 2 de octubre del 2025",
-    "time": "TBA",
-    "image": "https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "NBA"
-  },
-  {
-    "id": "nba-pelicans-melbourne",
-    "title": "NBA Preseason - Pelicans vs Melbourne United",
-    "description": "Juego internacional de pretemporada en Melbourne, Australia.",
-    "date": "Viernes 3 de octubre del 2025",
-    "time": "TBA",
-    "image": "https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "NBA"
-  },
-  {
-    "id": "nba-knicks-76ers-abu-dhabi2",
-    "title": "NBA Preseason - Knicks vs 76ers",
-    "description": "Segundo juego internacional en Abu Dhabi.",
-    "date": "Sabado 4 de octubre del 2025",
-    "time": "TBA",
-    "image": "https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "NBA"
-  },
-  {
-    "id": "nba-pelicans-semelbourne",
-    "title": "NBA Preseason - Pelicans vs SE Melbourne Phoenix",
-    "description": "Juego de exhibición en Melbourne, Australia.",
-    "date": "Domingo 5 de octubre del 2025",
-    "time": "TBA",
-    "image": "https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "NBA"
-  },
-  {
-    "id": "nba-nets-suns-macao",
-    "title": "NBA Preseason - Nets vs Suns",
-    "description": "Partido internacional en Macao, China.",
-    "date": "Viernes 10 de octubre del 2025",
-    "time": "TBA",
-    "image": "https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "NBA"
-  },
-  {
-    "id": "nba-lakers-warriors1",
-    "title": "NBA Preseason - Lakers vs Warriors",
-    "description": "Partido de pretemporada en EE. UU.",
-    "date": "Viernes 10 de octubre del 2025",
-    "time": "TBA",
-    "image": "https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "NBA"
-  },
-  {
-    "id": "nba-preseason-final-day",
-    "title": "NBA Preseason - Última jornada",
-    "description": "Último día de partidos de pretemporada en la NBA.",
-    "date": "Viernes 17 de octubre del 2025",
-    "time": "TBA",
-    "image": "https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg",
-    "streamUrl": "",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "NBA"
   }
 ]
-
