@@ -128,7 +128,14 @@ const nextConfig: NextConfig = {
         port: '',
         // El pathname cubre '/f/styles/wwe_16_9_xl/public/2025/10/20251017_SNME_Match_CodyDrew_16x9_Date.jpg'
         // y otros paths dentro de /f/styles/
-        pathname: '/f/styles/**', 
+        pathname: '/f/styles/**',
+      },
+        // --- ¡NUEVO HOSTNAME AÑADIDO! (www.wwe.com) ---
+        {
+        protocol: 'https',
+        hostname: 'www.lineups.com',
+        port: '',
+        pathname: '/wp-content/uploads/**',
       },
       // --- FIN NUEVO HOSTNAME ---
     ],
