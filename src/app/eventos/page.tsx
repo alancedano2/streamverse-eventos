@@ -52,7 +52,7 @@ export default function EventosPage() {
         )}
       </header>
 
-      {/* CUADRO DE ADVERTENCIA AÑADIDO */}
+      {/* CUADRO DE ADVERTENCIA CORREGIDO */}
       <div className="w-full max-w-7xl mx-auto p-4 mb-8 bg-red-700/80 border-2 border-red-500 rounded-xl shadow-2xl text-center">
         <p className="text-xl font-bold text-white mb-1 flex items-center justify-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-400 animate-pulse" viewBox="0 0 20 20" fill="currentColor">
@@ -64,7 +64,7 @@ export default function EventosPage() {
           </svg>
         </p>
         <p className="text-md text-red-100 mt-2">
-          Debido a las **condiciones climatológicas actuales**, existe un riesgo elevado de interrupciones en el servicio eléctrico (**apagones**). Recomendamos tener paciencia si la transmisión se ve afectada.
+          Debido a las <strong>condiciones climatológicas actuales</strong>, existe un riesgo elevado de interrupciones en el servicio eléctrico (<strong>apagones</strong>). Recomendamos tener paciencia si la transmisión se ve afectada.
         </p>
       </div>
       {/* FIN CUADRO DE ADVERTENCIA */}
