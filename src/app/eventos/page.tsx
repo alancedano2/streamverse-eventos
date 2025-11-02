@@ -17,6 +17,36 @@ interface Evento {
   league: string;
 }
 
+// Función para determinar si un evento está "en vivo"
+const isLive = (dateStr: string, timeStr: string): boolean => {
+  try {
+    // Definimos el año actual para usarlo en la comparación
+    const currentYear = new Date().getFullYear();
+    
+    // Convertimos la fecha del evento a un formato ISO para el análisis
+    // Asumimos que dateStr es como "Sabado 1 de noviembre del 2025"
+    // Esta lógica es simple y asume el año es 2025 (del archivo events.json), 
+    // pero funciona para propósitos de demostración.
+    // En una aplicación real, se usaría la fecha/hora y zona horaria actual.
+    
+    // Obtenemos el tiempo en milisegundos del evento
+    const eventDateTimeString = `${dateStr.replace(/del \d{4}/, `del ${currentYear}`)} ${timeStr}`;
+    const eventDate = new Date(eventDateTimeString.replace(/(del \d{4})/, '$1').replace(/\s*PM/, ' PM').replace(/\s*AM/, ' AM'));
+    
+    // Obtener la hora actual
+    const now = new Date('Sat Nov 01 2025 19:30:00 GMT-0400'); // FAKE TIME: Set a time after the 7:00 PM start time for testing (7:30 PM)
+    // En un entorno de producción, usarías simplemente: const now = new Date();
+
+    // Verificamos si la hora actual es posterior a la hora del evento
+    // Nota: Esto NO maneja zonas horarias complejas ni el final del evento, es solo un indicador simple de 'empezó'.
+    return now.getTime() >= eventDate.getTime();
+  } catch (error) {
+    console.error("Error al parsear la fecha del evento:", error);
+    return false;
+  }
+};
+
+
 export default function EventosPage() {
   const { isLoaded, isSignedIn, user } = useUser();
 
@@ -52,7 +82,7 @@ export default function EventosPage() {
         )}
       </header>
 
-      {/* CUADRO DE ADVERTENCIA CORREGIDO */}
+      {/* CUADRO DE ADVERTENCIA */}
       <div className="w-full max-w-7xl mx-auto p-4 mb-8 bg-red-700/80 border-2 border-red-500 rounded-xl shadow-2xl text-center">
         <p className="text-xl font-bold text-white mb-1 flex items-center justify-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-400 animate-pulse" viewBox="0 0 20 20" fill="currentColor">
@@ -71,49 +101,62 @@ export default function EventosPage() {
 
       {/* GRID DE EVENTOS: Reducimos a xl:grid-cols-3 para más ancho horizontal */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto">
-        {eventsData.map((evento: Evento) => (
-          <div
-            key={evento.id}
-            className="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl border border-gray-700 flex flex-col"
-          >
-            {/* IMAGEN DEL EVENTO: Altura fija de h-56 sm:h-64 */}
-            <div className="relative w-full h-56 sm:h-64">
-              <Image
-                src={evento.image}
-                alt={evento.title}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-t-xl"
-              />
-            </div>
-            {/* FIN IMAGEN DEL EVENTO */}
+        {eventsData.map((evento: Evento) => {
+          const isEventLive = isLive(evento.date, evento.time);
+          
+          return (
+            <div
+              key={evento.id}
+              className="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl border border-gray-700 flex flex-col"
+            >
+              {/* IMAGEN DEL EVENTO: Altura fija de h-56 sm:h-64 */}
+              <div className="relative w-full h-56 sm:h-64">
+                <Image
+                  src={evento.image}
+                  alt={evento.title}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-t-xl"
+                />
+                
+                {/* INDICADOR DE ESTADO EN VIVO */}
+                {isEventLive && (
+                  <div className="absolute top-3 left-3 bg-red-600 px-3 py-1 rounded-full text-xs font-bold uppercase shadow-lg flex items-center gap-1 animate-pulse">
+                    <span className="w-2 h-2 bg-white rounded-full"></span>
+                    EN VIVO
+                  </div>
+                )}
+                {/* FIN INDICADOR DE ESTADO EN VIVO */}
+              </div>
+              {/* FIN IMAGEN DEL EVENTO */}
 
-            <div className="p-4 sm:p-6 flex flex-col flex-grow">
-              {/* TÍTULO */}
-              <h2 className="text-2xl font-bold mb-1 text-white">{evento.title}</h2>
+              <div className="p-4 sm:p-6 flex flex-col flex-grow">
+                {/* TÍTULO */}
+                <h2 className="text-2xl font-bold mb-1 text-white">{evento.title}</h2>
 
-              {/* LIGA / CATEGORÍA */}
-              <p className="text-gray-400 text-sm mb-2">
-                {evento.league}
-              </p>
+                {/* LIGA / CATEGORÍA */}
+                <p className="text-gray-400 text-sm mb-2">
+                  {evento.league}
+                </p>
 
-              {/* FECHA Y HORA */}
-              <p className="text-gray-400 text-sm mb-3">
-                🗓️ {evento.date} - ⏰ {evento.time}
-              </p>
+                {/* FECHA Y HORA */}
+                <p className="text-gray-400 text-sm mb-3">
+                  🗓️ {evento.date} - ⏰ {evento.time}
+                </p>
 
-              {/* DESCRIPCIÓN */}
-              <p className="text-gray-300 mb-4 text-base line-clamp-3 flex-grow">{evento.description}</p>
+                {/* DESCRIPCIÓN */}
+                <p className="text-gray-300 mb-4 text-base line-clamp-3 flex-grow">{evento.description}</p>
 
-              {/* BOTÓN "VER TRANSMISIÓN" */}
-              <div className="mt-auto pt-4 border-t border-gray-700">
-                <Link href={`/eventos/${evento.id}`} className="block w-full text-center bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
-                    Ver Transmisión
-                </Link>
+                {/* BOTÓN "VER TRANSMISIÓN" */}
+                <div className="mt-auto pt-4 border-t border-gray-700">
+                  <Link href={`/eventos/${evento.id}`} className="block w-full text-center bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
+                      Ver Transmisión
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
