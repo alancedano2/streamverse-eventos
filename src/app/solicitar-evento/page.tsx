@@ -17,7 +17,7 @@ export default function SolicitarEventoPage() {
 
     try {
       // Usando fetch para enviar datos a un servicio de formulario de terceros (Formspree es un ejemplo común)
-      const response = await fetch('YOUR_FORMSPREE_ENDPOINT', {
+      const response = await fetch('https://formspree.io/f/xzzkwrgr', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
