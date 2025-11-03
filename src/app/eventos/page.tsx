@@ -6,6 +6,11 @@ import Image from 'next/image';
 import { UserButton, useUser } from '@clerk/nextjs';
 import eventsData from '../../../data/events.json';
 
+// =========================================================
+// ⚠️ 1. INTERRUPTOR FÁCIL DE MODIFICAR (CAMBIA 'true' por 'false' para ocultar) ⚠️
+// =========================================================
+const SHOW_WEEKLY_BREAK_MESSAGE = true; // Establece a 'true' para mostrar el aviso
+
 interface Evento {
   id: string;
   title: string;
@@ -70,7 +75,7 @@ export default function EventosPage() {
         )}
       </header>
 
-      {/* CUADRO DE ADVERTENCIA */}
+      {/* CUADRO DE ADVERTENCIA SOBRE APAGONES (EXISTENTE) */}
       <div className="w-full max-w-7xl mx-auto p-4 mb-6 bg-red-700/80 border-2 border-red-500 rounded-xl shadow-2xl text-center">
         <p className="text-xl font-bold text-white mb-1 flex items-center justify-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-400 animate-pulse" viewBox="0 0 20 20" fill="currentColor">
@@ -87,6 +92,20 @@ export default function EventosPage() {
       </div>
       {/* FIN CUADRO DE ADVERTENCIA */}
       
+      {/* =========================================================
+         2. CUADRO DE AVISO DE PROGRAMACIÓN (CONDICIONAL)
+         ========================================================= */}
+      {SHOW_WEEKLY_BREAK_MESSAGE && (
+        <div className="w-full max-w-7xl mx-auto p-4 mb-6 bg-blue-900/80 border-2 border-blue-500 rounded-xl shadow-2xl text-center">
+          <p className="text-xl font-bold text-white mb-1 flex items-center justify-center gap-2">
+            <span className="text-3xl">ℹ️</span> AVISO DE PROGRAMACIÓN SEMANAL
+          </p>
+          <p className="text-md text-blue-100 mt-2">
+            Esta semana, no se transmitirán eventos. La programación regular se reanuda los **sábados y domingos**. ¡Disculpa las molestias!
+          </p>
+        </div>
+      )}
+
       {/* BOTÓN A SOLICITAR EVENTO */}
       <div className="w-full max-w-7xl mx-auto mb-10 text-center">
         <Link href="/solicitar-evento" className="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 ease-in-out transform hover:scale-[1.02] shadow-lg">
