@@ -104,7 +104,7 @@ export default function EventosPage() {
               <span className="text-3xl">ℹ️</span> AVISO DE PROGRAMACIÓN SEMANAL
             </p>
             <p className="text-md text-blue-100 mt-2">
-              Los eventos estarán disponibles todos los **viernes, sábados y domingos**. ¡Gracias por siempre estar pendiente a la programación!
+              Los eventos estarán disponibles todos los <strong>viernes, sábados y domingos</strong>. ¡Gracias por siempre estar pendiente a la programación!
             </p>
           </div>
           
