@@ -7,9 +7,11 @@ import { UserButton, useUser } from '@clerk/nextjs';
 import eventsData from '../../../data/events.json';
 
 // =========================================================
-// ⚠️ 1. INTERRUPTOR FÁCIL DE MODIFICAR (CAMBIA 'true' por 'false' para ocultar) ⚠️
+// ⚠️ 1. INTERRUPTOR PRINCIPAL DE VISIBILIDAD DE EVENTOS ⚠️
+// Si es 'true', SOLO se muestra el aviso de programación y el botón de solicitud.
+// Si es 'false', se muestra la lista completa de eventos.
 // =========================================================
-const SHOW_WEEKLY_BREAK_MESSAGE = true; // Establece a 'true' para mostrar el aviso
+const SHOW_WEEKLY_BREAK_MESSAGE = true; // CAMBIA a 'false' para mostrar la lista
 
 interface Evento {
   id: string;
@@ -26,7 +28,7 @@ interface Evento {
 const isLive = (dateStr: string, timeStr: string): boolean => {
   try {
     // ⚠️ Importante: Reemplaza esta hora ficticia con "const now = new Date();" para producción.
-    const now = new Date('Sat Nov 01 2025 19:30:00 GMT-0400'); // Hora Ficticia (7:30 PM, Puerto Rico)
+    const now = new Date('Sat Nov 01 2025 19:30:00 GMT-0400'); // Hora Ficticia (5:58 PM AST es la hora actual)
     
     // Convertimos la fecha del evento a un formato que Date pueda parsear
     const eventDateTimeString = `${dateStr.replace(/del \d{4}/, `del ${now.getFullYear()}`)} ${timeStr}`;
@@ -96,83 +98,89 @@ export default function EventosPage() {
          2. CUADRO DE AVISO DE PROGRAMACIÓN (CONDICIONAL)
          ========================================================= */}
       {SHOW_WEEKLY_BREAK_MESSAGE && (
-        <div className="w-full max-w-7xl mx-auto p-4 mb-6 bg-blue-900/80 border-2 border-blue-500 rounded-xl shadow-2xl text-center">
-          <p className="text-xl font-bold text-white mb-1 flex items-center justify-center gap-2">
-            <span className="text-3xl">ℹ️</span> AVISO DE PROGRAMACIÓN SEMANAL
-          </p>
-          <p className="text-md text-blue-100 mt-2">
-            Esta semana, no se transmitirán eventos. La programación regular se reanuda los **sábados y domingos**. ¡Disculpa las molestias!
-          </p>
-        </div>
+        <>
+          <div className="w-full max-w-7xl mx-auto p-4 mb-10 bg-blue-900/80 border-2 border-blue-500 rounded-xl shadow-2xl text-center">
+            <p className="text-xl font-bold text-white mb-1 flex items-center justify-center gap-2">
+              <span className="text-3xl">ℹ️</span> AVISO DE PROGRAMACIÓN SEMANAL
+            </p>
+            <p className="text-md text-blue-100 mt-2">
+              Esta semana, no se transmitirán eventos. La programación regular se reanuda los **sábados y domingos**. ¡Disculpa las molestias!
+            </p>
+          </div>
+          
+          {/* BOTÓN A SOLICITAR EVENTO (SE MUESTRA INCLUSO CON EL AVISO) */}
+          <div className="w-full max-w-7xl mx-auto mb-10 text-center">
+            <Link href="/solicitar-evento" className="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 ease-in-out transform hover:scale-[1.02] shadow-lg">
+              ¿Buscas un evento? ¡Solicítalo aquí! 📝
+            </Link>
+          </div>
+          {/* FIN BOTÓN A SOLICITAR EVENTO */}
+        </>
       )}
 
-      {/* BOTÓN A SOLICITAR EVENTO */}
-      <div className="w-full max-w-7xl mx-auto mb-10 text-center">
-        <Link href="/solicitar-evento" className="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 ease-in-out transform hover:scale-[1.02] shadow-lg">
-          ¿Buscas un evento? ¡Solicítalo aquí! 📝
-        </Link>
-      </div>
-      {/* FIN BOTÓN A SOLICITAR EVENTO */}
+      {/* =========================================================
+         3. GRID DE EVENTOS (CONDICIONAL)
+         ========================================================= */}
+      {!SHOW_WEEKLY_BREAK_MESSAGE && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto">
+          {eventsData.map((evento: Evento) => {
+            const isEventLive = isLive(evento.date, evento.time);
+            
+            return (
+              <div
+                key={evento.id}
+                className="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl border border-gray-700 flex flex-col"
+              >
+                {/* IMAGEN DEL EVENTO: Altura fija de h-56 sm:h-64 */}
+                <div className="relative w-full h-56 sm:h-64">
+                  <Image
+                    src={evento.image}
+                    alt={evento.title}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-t-xl"
+                  />
+                  
+                  {/* INDICADOR DE ESTADO EN VIVO */}
+                  {isEventLive && (
+                    <div className="absolute top-3 left-3 bg-red-600 px-3 py-1 rounded-full text-xs font-bold uppercase shadow-lg flex items-center gap-1 animate-pulse">
+                      <span className="w-2 h-2 bg-white rounded-full"></span>
+                      EN VIVO
+                    </div>
+                  )}
+                  {/* FIN INDICADOR DE ESTADO EN VIVO */}
+                </div>
+                {/* FIN IMAGEN DEL EVENTO */}
 
-      {/* GRID DE EVENTOS: Reducimos a xl:grid-cols-3 para más ancho horizontal */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto">
-        {eventsData.map((evento: Evento) => {
-          const isEventLive = isLive(evento.date, evento.time);
-          
-          return (
-            <div
-              key={evento.id}
-              className="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl border border-gray-700 flex flex-col"
-            >
-              {/* IMAGEN DEL EVENTO: Altura fija de h-56 sm:h-64 */}
-              <div className="relative w-full h-56 sm:h-64">
-                <Image
-                  src={evento.image}
-                  alt={evento.title}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-t-xl"
-                />
-                
-                {/* INDICADOR DE ESTADO EN VIVO */}
-                {isEventLive && (
-                  <div className="absolute top-3 left-3 bg-red-600 px-3 py-1 rounded-full text-xs font-bold uppercase shadow-lg flex items-center gap-1 animate-pulse">
-                    <span className="w-2 h-2 bg-white rounded-full"></span>
-                    EN VIVO
+                <div className="p-4 sm:p-6 flex flex-col flex-grow">
+                  {/* TÍTULO */}
+                  <h2 className="text-2xl font-bold mb-1 text-white">{evento.title}</h2>
+
+                  {/* LIGA / CATEGORÍA */}
+                  <p className="text-gray-400 text-sm mb-2">
+                    {evento.league}
+                  </p>
+
+                  {/* FECHA Y HORA */}
+                  <p className="text-gray-400 text-sm mb-3">
+                    🗓️ {evento.date} - ⏰ {evento.time}
+                  </p>
+
+                  {/* DESCRIPCIÓN */}
+                  <p className="text-gray-300 mb-4 text-base line-clamp-3 flex-grow">{evento.description}</p>
+
+                  {/* BOTÓN "VER TRANSMISIÓN" */}
+                  <div className="mt-auto pt-4 border-t border-gray-700">
+                    <Link href={`/eventos/${evento.id}`} className="block w-full text-center bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
+                        Ver Transmisión
+                    </Link>
                   </div>
-                )}
-                {/* FIN INDICADOR DE ESTADO EN VIVO */}
-              </div>
-              {/* FIN IMAGEN DEL EVENTO */}
-
-              <div className="p-4 sm:p-6 flex flex-col flex-grow">
-                {/* TÍTULO */}
-                <h2 className="text-2xl font-bold mb-1 text-white">{evento.title}</h2>
-
-                {/* LIGA / CATEGORÍA */}
-                <p className="text-gray-400 text-sm mb-2">
-                  {evento.league}
-                </p>
-
-                {/* FECHA Y HORA */}
-                <p className="text-gray-400 text-sm mb-3">
-                  🗓️ {evento.date} - ⏰ {evento.time}
-                </p>
-
-                {/* DESCRIPCIÓN */}
-                <p className="text-gray-300 mb-4 text-base line-clamp-3 flex-grow">{evento.description}</p>
-
-                {/* BOTÓN "VER TRANSMISIÓN" */}
-                <div className="mt-auto pt-4 border-t border-gray-700">
-                  <Link href={`/eventos/${evento.id}`} className="block w-full text-center bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
-                      Ver Transmisión
-                  </Link>
                 </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
