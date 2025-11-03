@@ -104,7 +104,7 @@ export default function EventosPage() {
               <span className="text-3xl">ℹ️</span> AVISO DE PROGRAMACIÓN SEMANAL
             </p>
             <p className="text-md text-blue-100 mt-2">
-              Esta semana, no se transmitirán eventos. La programación regular se reanuda los **sábados y domingos**. ¡Disculpa las molestias!
+              Los eventos estarán disponibles todos los **viernes, sábados y domingos**. ¡Gracias por siempre estar pendiente a la programación!
             </p>
           </div>
           
