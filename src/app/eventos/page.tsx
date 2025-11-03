@@ -20,25 +20,13 @@ interface Evento {
 // Función para determinar si un evento está "en vivo"
 const isLive = (dateStr: string, timeStr: string): boolean => {
   try {
-    // Definimos el año actual para usarlo en la comparación
-    const currentYear = new Date().getFullYear();
+    // ⚠️ Importante: Reemplaza esta hora ficticia con "const now = new Date();" para producción.
+    const now = new Date('Sat Nov 01 2025 19:30:00 GMT-0400'); // Hora Ficticia (7:30 PM, Puerto Rico)
     
-    // Convertimos la fecha del evento a un formato ISO para el análisis
-    // Asumimos que dateStr es como "Sabado 1 de noviembre del 2025"
-    // Esta lógica es simple y asume el año es 2025 (del archivo events.json), 
-    // pero funciona para propósitos de demostración.
-    // En una aplicación real, se usaría la fecha/hora y zona horaria actual.
-    
-    // Obtenemos el tiempo en milisegundos del evento
-    const eventDateTimeString = `${dateStr.replace(/del \d{4}/, `del ${currentYear}`)} ${timeStr}`;
+    // Convertimos la fecha del evento a un formato que Date pueda parsear
+    const eventDateTimeString = `${dateStr.replace(/del \d{4}/, `del ${now.getFullYear()}`)} ${timeStr}`;
     const eventDate = new Date(eventDateTimeString.replace(/(del \d{4})/, '$1').replace(/\s*PM/, ' PM').replace(/\s*AM/, ' AM'));
     
-    // Obtener la hora actual
-    const now = new Date('Sat Nov 01 2025 19:30:00 GMT-0400'); // FAKE TIME: Set a time after the 7:00 PM start time for testing (7:30 PM)
-    // En un entorno de producción, usarías simplemente: const now = new Date();
-
-    // Verificamos si la hora actual es posterior a la hora del evento
-    // Nota: Esto NO maneja zonas horarias complejas ni el final del evento, es solo un indicador simple de 'empezó'.
     return now.getTime() >= eventDate.getTime();
   } catch (error) {
     console.error("Error al parsear la fecha del evento:", error);
@@ -83,7 +71,7 @@ export default function EventosPage() {
       </header>
 
       {/* CUADRO DE ADVERTENCIA */}
-      <div className="w-full max-w-7xl mx-auto p-4 mb-8 bg-red-700/80 border-2 border-red-500 rounded-xl shadow-2xl text-center">
+      <div className="w-full max-w-7xl mx-auto p-4 mb-6 bg-red-700/80 border-2 border-red-500 rounded-xl shadow-2xl text-center">
         <p className="text-xl font-bold text-white mb-1 flex items-center justify-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-400 animate-pulse" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M8.257 3.344a1.875 1.875 0 013.486 0l5.807 10.373A2 2 0 0115.897 16H4.103a2 2 0 01-1.65-2.283l5.804-10.373zM10 13a1 1 0 100-2 1 1 0 000 2zm0-4a1 1 0 011 1v2a1 1 0 11-2 0V10a1 1 0 011-1z" clipRule="evenodd" />
@@ -98,6 +86,14 @@ export default function EventosPage() {
         </p>
       </div>
       {/* FIN CUADRO DE ADVERTENCIA */}
+      
+      {/* BOTÓN A SOLICITAR EVENTO */}
+      <div className="w-full max-w-7xl mx-auto mb-10 text-center">
+        <Link href="/solicitar-evento" className="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 ease-in-out transform hover:scale-[1.02] shadow-lg">
+          ¿Buscas un evento? ¡Solicítalo aquí! 📝
+        </Link>
+      </div>
+      {/* FIN BOTÓN A SOLICITAR EVENTO */}
 
       {/* GRID DE EVENTOS: Reducimos a xl:grid-cols-3 para más ancho horizontal */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto">
