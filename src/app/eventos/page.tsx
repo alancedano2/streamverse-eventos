@@ -11,7 +11,7 @@ import eventsData from '../../../data/events.json';
 // Si es 'true', SOLO se muestra el aviso de programación y el botón de solicitud.
 // Si es 'false', se muestra la lista completa de eventos.
 // =========================================================
-const SHOW_WEEKLY_BREAK_MESSAGE = true; // CAMBIA a 'false' para mostrar la lista
+const SHOW_WEEKLY_BREAK_MESSAGE = false // CAMBIA a 'false' para mostrar la lista
 
 interface Evento {
   id: string;
@@ -184,3 +184,4 @@ export default function EventosPage() {
     </div>
   );
 }
+
