@@ -77,23 +77,6 @@ export default function EventosPage() {
         )}
       </header>
 
-      {/* CUADRO DE ADVERTENCIA SOBRE APAGONES (EXISTENTE) */}
-      <div className="w-full max-w-7xl mx-auto p-4 mb-6 bg-red-700/80 border-2 border-red-500 rounded-xl shadow-2xl text-center">
-        <p className="text-xl font-bold text-white mb-1 flex items-center justify-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-400 animate-pulse" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M8.257 3.344a1.875 1.875 0 013.486 0l5.807 10.373A2 2 0 0115.897 16H4.103a2 2 0 01-1.65-2.283l5.804-10.373zM10 13a1 1 0 100-2 1 1 0 000 2zm0-4a1 1 0 011 1v2a1 1 0 11-2 0V10a1 1 0 011-1z" clipRule="evenodd" />
-          </svg>
-          AVISO IMPORTANTE PARA PUERTO RICO
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-400 animate-pulse" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M8.257 3.344a1.875 1.875 0 013.486 0l5.807 10.373A2 2 0 0115.897 16H4.103a2 2 0 01-1.65-2.283l5.804-10.373zM10 13a1 1 0 100-2 1 1 0 000 2zm0-4a1 1 0 011 1v2a1 1 0 11-2 0V10a1 1 0 011-1z" clipRule="evenodd" />
-          </svg>
-        </p>
-        <p className="text-md text-red-100 mt-2">
-          Debido a las <strong>condiciones climatológicas actuales</strong>, existe un riesgo elevado de interrupciones en el servicio eléctrico (<strong>apagones</strong>). Recomendamos tener paciencia si la transmisión se ve afectada.
-        </p>
-      </div>
-      {/* FIN CUADRO DE ADVERTENCIA */}
-      
       {/* =========================================================
          2. CUADRO DE AVISO DE PROGRAMACIÓN (CONDICIONAL)
          ========================================================= */}
@@ -184,4 +167,3 @@ export default function EventosPage() {
     </div>
   );
 }
-
