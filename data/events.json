@@ -1,90 +1,13 @@
 [
   {
-    "id": "nba-pelicans-thunder",
-    "title": "NBA: New Orleans Pelicans vs. Oklahoma City Thunder",
-    "description": "Partido de temporada regular de la NBA.",
-    "date": "Domingo 2 de noviembre del 2025",
-    "time": "4:30 PM AST",
-    "image": "https://www.lineups.com/wp-content/uploads/2018/12/thunder-vs-pelicans-760x422.jpg",
-    "streamUrl": "https://lil-brought-joy-pete.trycloudflare.com//LiveApp/streams/nba-pelicans-thunder.m3u8",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "NBA"
-  },
-  {
-    "id": "nba-jazz-hornets",
-    "title": "NBA: Utah Jazz vs. Charlotte Hornets",
-    "description": "Partido de temporada regular de la NBA.",
-    "date": "Domingo 2 de noviembre del 2025",
-    "time": "7:00 PM AST",
-    "image": "https://www.lineups.com/wp-content/uploads/2018/12/hornets-vs-jazz.jpg",
-    "streamUrl": "https://lil-brought-joy-pete.trycloudflare.com//LiveApp/streams/nba-jazz-hornets.m3u8",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "NBA"
-  },
-  {
-    "id": "nba-grizzlies-raptors",
-    "title": "NBA: https://www.lineups.com/wp-content/uploads/2018/12/raptors-vs-grizzlies.jpg",
-    "description": "Partido de temporada regular de la NBA.",
-    "date": "Domingo 2 de noviembre del 2025",
-    "time": "7:00 PM AST",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/NBA_Logo.svg/1280px-NBA_Logo.svg.png",
-    "streamUrl": "https://lil-brought-joy-pete.trycloudflare.com//LiveApp/streams/nba-grizzlies-raptors.m3u8",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "NBA"
-  },
-  {
-    "id": "nba-hawks-cavaliers",
-    "title": "NBA: Atlanta Hawks vs. Cleveland Cavaliers",
-    "description": "Partido de temporada regular de la NBA.",
-    "date": "Domingo 2 de noviembre del 2025",
-    "time": "7:00 PM AST",
-    "image": "https://www.lineups.com/wp-content/uploads/2018/12/hawks-vs-cavaliers.jpg",
-    "streamUrl": "https://lil-brought-joy-pete.trycloudflare.com//LiveApp/streams/nba-hawks-cavaliers.m3u8",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "NBA"
-  },
-  {
-    "id": "nba-76ers-nets",
-    "title": "NBA: Philadelphia 76ers vs. Brooklyn Nets",
-    "description": "Partido de temporada regular de la NBA.",
-    "date": "Domingo 2 de noviembre del 2025",
-    "time": "7:00 PM AST",
-    "image": "https://www.lineups.com/wp-content/uploads/2018/12/76ers-vs-nets.jpg",
-    "streamUrl": "https://lil-brought-joy-pete.trycloudflare.com//LiveApp/streams/nba-76ers-nets.m3u8",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "NBA"
-  },
-  {
-    "id": "nba-bulls-knicks",
-    "title": "NBA: Chicago Bulls vs. New York Knicks",
-    "description": "Partido de temporada regular de la NBA.",
-    "date": "Domingo 2 de noviembre del 2025",
+    "id": "juanma-vs-gallo",
+    "title": "Juanma Lopez vs. Gallo The Producer",
+    "description": "Evento especial de boxeo en vivo.",
+    "date": "Sábado 22 de noviembre del 2025",
     "time": "8:00 PM AST",
-    "image": "https://www.lineups.com/wp-content/uploads/2021/10/knicks-vs-bulls.jpg",
-    "streamUrl": "https://lil-brought-joy-pete.trycloudflare.com//LiveApp/streams/nba-bulls-knicks.m3u8",
+    "image": "https://www.trillertv.com/thumbs/va/2phwx/momentodelaverdad_juanmalopez-gallotheproducer_1080x1080_m81cKSl/lopez-vs-gallo-the-producer-es-1280x720top.jpg",
+    "streamUrl": "https://increasing-telecom-dennis-button.trycloudflare.com//LiveApp/streams/ppvboxeo.m3u8",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "NBA"
-  },
-  {
-    "id": "nba-spurs-suns",
-    "title": "NBA: San Antonio Spurs vs. Phoenix Suns",
-    "description": "Partido de temporada regular de la NBA.",
-    "date": "Domingo 2 de noviembre del 2025",
-    "time": "9:00 PM AST",
-    "image": "https://www.lineups.com/wp-content/uploads/2018/12/spurs-vs-suns.jpg",
-    "streamUrl": "https://lil-brought-joy-pete.trycloudflare.com//LiveApp/streams/nba-spurs-suns.m3u8",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "NBA"
-  },
-  {
-    "id": "nba-heat-lakers",
-    "title": "NBA: Miami Heat vs. Los Angeles Lakers",
-    "description": "Partido de temporada regular de la NBA.",
-    "date": "Domingo 2 de noviembre del 2025",
-    "time": "10:30 PM AST",
-    "image": "https://www.lineups.com/wp-content/uploads/2018/12/lakers-vs-heat-760x422.jpg",
-    "streamUrl": "https://lil-brought-joy-pete.trycloudflare.com//LiveApp/streams/nba-heat-lakers.m3u8",
-    "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "NBA"
+    "league": "Boxeo"
   }
 ]
