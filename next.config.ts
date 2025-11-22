@@ -114,30 +114,25 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/resizer/v2/**',
       },
-      // --- HOSTNAME EXISTENTE (i.ytimg.com) ---
       {
         protocol: 'https',
         hostname: 'i.ytimg.com',
         port: '',
         pathname: '/vi/**',
       },
-      // --- ¡NUEVO HOSTNAME AÑADIDO! (www.wwe.com) ---
       {
         protocol: 'https',
         hostname: 'www.wwe.com',
         port: '',
-        // El pathname cubre '/f/styles/wwe_16_9_xl/public/2025/10/20251017_SNME_Match_CodyDrew_16x9_Date.jpg'
-        // y otros paths dentro de /f/styles/
         pathname: '/f/styles/**',
       },
-        // --- ¡NUEVO HOSTNAME AÑADIDO! (www.wwe.com) ---
-        {
+      // --- NUEVO HOSTNAME AÑADIDO PARA BOXEO (TrillerTV) ---
+      {
         protocol: 'https',
-        hostname: 'www.lineups.com',
+        hostname: 'www.trillertv.com',
         port: '',
-        pathname: '/wp-content/uploads/**',
+        pathname: '/**',
       },
-      // --- FIN NUEVO HOSTNAME ---
     ],
   },
 };
