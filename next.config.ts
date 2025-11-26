@@ -126,10 +126,16 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/f/styles/**',
       },
-      // --- NUEVO HOSTNAME AÑADIDO PARA BOXEO (TrillerTV) ---
       {
         protocol: 'https',
         hostname: 'www.trillertv.com',
+        port: '',
+        pathname: '/**',
+      },
+      // --- NUEVO HOSTNAME AÑADIDO PARA LA IMAGEN DE PINTEREST ---
+      {
+        protocol: 'https',
+        hostname: 'i.pinimg.com',
         port: '',
         pathname: '/**',
       },
