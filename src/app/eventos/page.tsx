@@ -4,6 +4,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { UserButton, useUser } from '@clerk/nextjs';
+// Asegúrate de que eventsData exista en la ruta proporcionada
 import eventsData from '../../../data/events.json';
 
 // =========================================================
@@ -28,12 +29,14 @@ interface Evento {
 const isLive = (dateStr: string, timeStr: string): boolean => {
   try {
     // ⚠️ Importante: Reemplaza esta hora ficticia con "const now = new Date();" para producción.
-    const now = new Date('Sat Nov 01 2025 19:30:00 GMT-0400'); // Hora Ficticia (5:58 PM AST es la hora actual)
+    const now = new Date('Sat Nov 01 2025 19:30:00 GMT-0400'); // Hora Ficticia
     
     // Convertimos la fecha del evento a un formato que Date pueda parsear
     const eventDateTimeString = `${dateStr.replace(/del \d{4}/, `del ${now.getFullYear()}`)} ${timeStr}`;
     const eventDate = new Date(eventDateTimeString.replace(/(del \d{4})/, '$1').replace(/\s*PM/, ' PM').replace(/\s*AM/, ' AM'));
     
+    // Asumimos que un evento está "en vivo" si la hora actual es posterior o igual a la hora del evento.
+    // Para una lógica de "en vivo" real, se debería incluir una ventana de tiempo (ej: si la hora actual está entre la hora de inicio y la hora de fin).
     return now.getTime() >= eventDate.getTime();
   } catch (error) {
     console.error("Error al parsear la fecha del evento:", error);
@@ -47,119 +50,126 @@ export default function EventosPage() {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black text-white">
+      <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
         Cargando autenticación...
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black p-4 sm:p-8 lg:p-12 text-white">
-      <header className="flex flex-col sm:flex-row justify-between items-center mb-10 gap-4">
-        <h1 className="flex items-center text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 drop-shadow-lg text-center sm:text-left">
+    <div className="min-h-screen bg-gray-900 text-white p-4 sm:p-8 lg:p-12">
+      <header className="flex flex-col sm:flex-row justify-between items-center mb-12 gap-4 max-w-7xl mx-auto">
+        {/* LOGO Y TÍTULO */}
+        <h1 className="flex items-center text-4xl sm:text-5xl font-extrabold text-white drop-shadow-md">
+          {/* Logo con ancho ajustado para un look más estilizado */}
           <Image
-            src="/images/logo.webp" // Ruta a tu archivo logo.webp
+            src="/images/logo.webp"
             alt="StreamVerse Logo"
-            width={300} // Valor deseado para el ancho
-            height={240} // Valor deseado para el alto
-            layout="intrinsic" // Usa intrinsic para mantener el aspecto y respetar width/height
-            className="mr-2 sm:mr-3" // Margen a la derecha
+            width={300} // Más pequeño
+            height={50} // Más pequeño
+            className="mr-3 rounded-full"
           />
-          Events 🚀 {/* Texto "Events" y el cohete */}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
+            Eventos
+          </span>
         </h1>
+        
+        {/* BOTÓN DE USUARIO Y SALUDO */}
         {isSignedIn && (
           <div className="flex items-center gap-4">
-            <span className="text-lg font-semibold hidden sm:block">
-              Hola, {user?.firstName || user?.username || 'Usuario'}!
+            <span className="text-lg font-medium text-gray-300 hidden sm:block">
+              Hola, **{user?.firstName || user?.username || 'Usuario'}**!
             </span>
             <UserButton afterSignOutUrl="/login" />
           </div>
         )}
       </header>
 
-      {/* =========================================================
-         2. CUADRO DE AVISO DE PROGRAMACIÓN (CONDICIONAL)
-         ========================================================= */}
+      {/* --- */}
+
+      {/* 2. CUADRO DE AVISO DE PROGRAMACIÓN (CONDICIONAL) */}
       {SHOW_WEEKLY_BREAK_MESSAGE && (
         <>
-          <div className="w-full max-w-7xl mx-auto p-4 mb-10 bg-blue-900/80 border-2 border-blue-500 rounded-xl shadow-2xl text-center">
-            <p className="text-xl font-bold text-white mb-1 flex items-center justify-center gap-2">
-              <span className="text-3xl">ℹ️</span> AVISO DE PROGRAMACIÓN SEMANAL
+          <div className="w-full max-w-7xl mx-auto p-6 mb-10 bg-gray-800 border border-blue-600 rounded-lg shadow-xl text-center">
+            <p className="text-xl font-bold text-blue-400 mb-2 flex items-center justify-center gap-2">
+              <span className="text-2xl">🚧</span> **AVISO DE PROGRAMACIÓN**
             </p>
-            <p className="text-md text-blue-100 mt-2">
-              Los eventos estarán disponibles todos los <strong>viernes, sábados y domingos</strong>. ¡Gracias por siempre estar pendiente a la programación!
+            <p className="text-md text-gray-300 mt-2">
+              Los eventos estarán disponibles todos los **viernes, sábados y domingos**. ¡Gracias por siempre estar pendiente!
             </p>
           </div>
           
-          {/* BOTÓN A SOLICITAR EVENTO (SE MUESTRA INCLUSO CON EL AVISO) */}
+          {/* BOTÓN A SOLICITAR EVENTO (Estilo Minimalista) */}
           <div className="w-full max-w-7xl mx-auto mb-10 text-center">
-            <Link href="/solicitar-evento" className="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 ease-in-out transform hover:scale-[1.02] shadow-lg">
-              ¿Buscas un evento? ¡Solicítalo aquí! 📝
+            <Link href="/solicitar-evento" className="inline-flex items-center justify-center bg-gray-700 hover:bg-gray-600 text-cyan-400 font-semibold py-3 px-8 rounded-full transition duration-300 shadow-md border border-gray-600">
+              ¿Buscas un evento? ¡Solicítalo aquí!
             </Link>
           </div>
-          {/* FIN BOTÓN A SOLICITAR EVENTO */}
         </>
       )}
 
-      {/* =========================================================
-         3. GRID DE EVENTOS (CONDICIONAL)
-         ========================================================= */}
+      {/* --- */}
+
+      {/* 3. GRID DE EVENTOS (CONDICIONAL) */}
       {!SHOW_WEEKLY_BREAK_MESSAGE && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {eventsData.map((evento: Evento) => {
             const isEventLive = isLive(evento.date, evento.time);
             
             return (
-              <div
+              <Link
                 key={evento.id}
-                className="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl border border-gray-700 flex flex-col"
+                href={`/eventos/${evento.id}`}
+                className="block" // Asegura que el Link cubra toda la tarjeta
               >
-                {/* IMAGEN DEL EVENTO: Altura fija de h-56 sm:h-64 */}
-                <div className="relative w-full h-56 sm:h-64">
-                  <Image
-                    src={evento.image}
-                    alt={evento.title}
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-t-xl"
-                  />
-                  
-                  {/* INDICADOR DE ESTADO EN VIVO */}
-                  {isEventLive && (
-                    <div className="absolute top-3 left-3 bg-red-600 px-3 py-1 rounded-full text-xs font-bold uppercase shadow-lg flex items-center gap-1 animate-pulse">
-                      <span className="w-2 h-2 bg-white rounded-full"></span>
-                      EN VIVO
+                <div
+                  className="bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.03] hover:shadow-2xl border border-gray-700 hover:border-cyan-500/50 flex flex-col h-full"
+                >
+                  {/* IMAGEN DEL EVENTO */}
+                  <div className="relative w-full h-56">
+                    <Image
+                      src={evento.image}
+                      alt={evento.title}
+                      layout="fill"
+                      objectFit="cover"
+                      className="rounded-t-xl"
+                    />
+                    
+                    {/* INDICADOR DE ESTADO EN VIVO (Estilo más compacto) */}
+                    {isEventLive && (
+                      <div className="absolute top-3 right-3 bg-red-600/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold uppercase shadow-lg flex items-center gap-1">
+                        <span className="w-2 h-2 bg-white rounded-full animate-ping-slow"></span>
+                        EN VIVO
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="p-5 flex flex-col flex-grow">
+                    {/* LIGA / CATEGORÍA (Color de acento) */}
+                    <p className="text-cyan-400 text-sm font-semibold mb-1">
+                      {evento.league}
+                    </p>
+
+                    {/* TÍTULO */}
+                    <h2 className="text-xl font-bold mb-2 text-white line-clamp-2">{evento.title}</h2>
+
+                    {/* FECHA Y HORA */}
+                    <p className="text-gray-400 text-sm mb-3">
+                      🗓️ {evento.date} - ⏰ {evento.time}
+                    </p>
+
+                    {/* DESCRIPCIÓN */}
+                    <p className="text-gray-300 text-sm line-clamp-3 flex-grow">{evento.description}</p>
+
+                    {/* BOTÓN (Implicitamente es el Link de la tarjeta, pero añadimos un CTA visual) */}
+                    <div className="mt-4 pt-4 border-t border-gray-700/50">
+                      <span className="block w-full text-center bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 rounded-lg transition duration-200 text-sm">
+                          Ver Detalles & Stream
+                      </span>
                     </div>
-                  )}
-                  {/* FIN INDICADOR DE ESTADO EN VIVO */}
-                </div>
-                {/* FIN IMAGEN DEL EVENTO */}
-
-                <div className="p-4 sm:p-6 flex flex-col flex-grow">
-                  {/* TÍTULO */}
-                  <h2 className="text-2xl font-bold mb-1 text-white">{evento.title}</h2>
-
-                  {/* LIGA / CATEGORÍA */}
-                  <p className="text-gray-400 text-sm mb-2">
-                    {evento.league}
-                  </p>
-
-                  {/* FECHA Y HORA */}
-                  <p className="text-gray-400 text-sm mb-3">
-                    🗓️ {evento.date} - ⏰ {evento.time}
-                  </p>
-
-                  {/* DESCRIPCIÓN */}
-                  <p className="text-gray-300 mb-4 text-base line-clamp-3 flex-grow">{evento.description}</p>
-
-                  {/* BOTÓN "VER TRANSMISIÓN" */}
-                  <div className="mt-auto pt-4 border-t border-gray-700">
-                    <Link href={`/eventos/${evento.id}`} className="block w-full text-center bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
-                        Ver Transmisión
-                    </Link>
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
