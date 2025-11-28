@@ -1,13 +1,35 @@
 [
   {
+    "id": "ewo-el-update",
+    "title": "EWO El Update",
+    "description": "Evento de lucha libre.",
+    "date": "Sábado 29 de noviembre del 2025",
+    "time": "10:00 AM AST",
+    "image": "/ewoupdate.jpg",
+    "streamUrl": "https://print-medicare-cnet-under.trycloudflare.com//LiveApp/streams/ewo-elupdate.m3u8",
+    "fallbackMp4Url": "/videos/video_fallback.mp4",
+    "league": "Lucha Libre"
+  },
+  {
     "id": "bad-bunny-debi-tirar-mas-fotos",
     "title": "Bad Bunny - DeBÍ TiRAR MáS FOToS (Repeticion del 20 de septiembre)",
     "description": "Repetición del evento especial.",
     "date": "Sábado 29 de noviembre del 2025",
     "time": "8:00 PM AST",
     "image": "https://i.pinimg.com/736x/bd/48/52/bd4852f2704d7855228f9500b61c70af.jpg",
-    "streamUrl": "https://increasing-telecom-dennis-button.trycloudflare.com//LiveApp/streams/ppvboxeo.m3u8",
+    "streamUrl": "https://evanescence-tracks-announce-constantly.trycloudflare.com//LiveApp/streams/badbunny-dtmf.m3u8",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "Música"
+  },
+  {
+    "id": "wwe-survivor-series-2025",
+    "title": "WWE Survivor Series 2025",
+    "description": "Evento de lucha libre.",
+    "date": "Sábado 29 de noviembre del 2025",
+    "time": "8:00 PM AST",
+    "image": "/ss2025.jpg",
+    "streamUrl": "",
+    "fallbackMp4Url": "/videos/video_fallback.mp4",
+    "league": "Lucha Libre"
   }
 ]
