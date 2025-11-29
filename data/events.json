@@ -1,14 +1,14 @@
 [
   {
-    "id": "ewo-el-update",
-    "title": "EWO El Update",
-    "description": "Evento de lucha libre.",
+    "id": "celtics-vs-timberwolves",
+    "title": "Boston Celtics vs Minnesota Timberwolves",
+    "description": "Partido de Baloncesto NBA.",
     "date": "Sábado 29 de noviembre del 2025",
-    "time": "10:00 AM AST",
-    "image": "/ewoupdate.jpg",
-    "streamUrl": "https://cited-dreams-nevada-packaging.trycloudflare.com//LiveApp/streams/ewo-elupdate.m3u8",
+    "time": "6:00 PM AST",
+    "image": "https://artwork.espncdn.com/events/401704837/16x9/1280x720_20241206152018.png",
+    "streamUrl": "https://cited-dreams-nevada-packaging.trycloudflare.com//LiveApp/streams/nba-1.m3u8",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
-    "league": "Lucha Libre"
+    "league": "NBA"
   },
   {
     "id": "bad-bunny-debi-tirar-mas-fotos",
@@ -33,6 +33,3 @@
     "league": "Lucha Libre"
   }
 ]
-
-
-
