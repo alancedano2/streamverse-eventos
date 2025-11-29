@@ -19,12 +19,12 @@ interface Evento {
   league: string;
 }
 
-// 1. Crear componente Clappr
+// --- 1. PLAYER ---
 const ClapprPlayer = ({ streamUrl, imageUrl }: { streamUrl: string; imageUrl?: string }) => {
   const playerContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let player: any = null;
+    let player: unknown = null;
 
     const loadPlayer = async () => {
       const Clappr = (await import('@clappr/player')).default;
@@ -47,8 +47,13 @@ const ClapprPlayer = ({ streamUrl, imageUrl }: { streamUrl: string; imageUrl?: s
     if (streamUrl) loadPlayer();
 
     return () => {
-      if (player && typeof player.destroy === 'function') {
-        player.destroy();
+      if (
+        player &&
+        typeof player === 'object' &&
+        'destroy' in player &&
+        typeof (player as { destroy: unknown }).destroy === 'function'
+      ) {
+        (player as { destroy: () => void }).destroy();
       }
     };
   }, [streamUrl, imageUrl]);
@@ -56,7 +61,7 @@ const ClapprPlayer = ({ streamUrl, imageUrl }: { streamUrl: string; imageUrl?: s
   return <div ref={playerContainerRef} className="w-full h-full" />;
 };
 
-// 2. Componente dinámico
+// --- 2. DINÁMICO ---
 const DynamicClapprPlayer = dynamic(() => Promise.resolve(ClapprPlayer), {
   ssr: false,
   loading: () => (
@@ -66,13 +71,12 @@ const DynamicClapprPlayer = dynamic(() => Promise.resolve(ClapprPlayer), {
   ),
 });
 
-// 3. Página del evento
+// --- 3. PAGE ---
 export default function EventoDetailPage() {
   const params = useParams();
   const id = Array.isArray(params.id) ? params.id[0] : params.id;
 
   const evento = eventsData.find((e: Evento) => e.id === id);
-
   const streamToPlay = evento?.streamUrl || evento?.fallbackMp4Url;
 
   if (!evento) {
@@ -111,10 +115,12 @@ export default function EventoDetailPage() {
           </svg>
           Volver a la lista
         </Link>
+
         <h1 className="text-4xl sm:text-5xl font-extrabold text-white">{evento.title}</h1>
         <p className="text-blue-400 text-xl font-medium mt-1">{evento.league}</p>
       </header>
 
+      {/* GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full max-w-7xl">
         {/* VIDEO */}
         <div className="lg:col-span-2 bg-gray-800 rounded-xl shadow-2xl overflow-hidden border border-gray-700 flex flex-col">
@@ -147,6 +153,7 @@ export default function EventoDetailPage() {
                 <p className="font-semibold">{evento.date}</p>
               </div>
             </div>
+
             <div className="flex items-center text-gray-300">
               <span className="text-xl mr-3 text-cyan-400">⏰</span>
               <div>
@@ -159,6 +166,7 @@ export default function EventoDetailPage() {
           <h3 className="text-lg font-bold mb-3 text-white border-b pb-2 border-gray-700/50">
             Descripción
           </h3>
+
           <p className="text-gray-300 text-base leading-relaxed flex-grow">{evento.description}</p>
 
           <div className="mt-6 pt-4 border-t border-gray-700/50">
