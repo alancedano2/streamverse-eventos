@@ -6,7 +6,7 @@
     "date": "Sábado 29 de noviembre del 2025",
     "time": "10:00 AM AST",
     "image": "/ewoupdate.jpg",
-    "streamUrl": "https://evanescence-tracks-announce-constantly.trycloudflare.com//LiveApp/streams/ewo-elupdate.m3u8",
+    "streamUrl": "https://cited-dreams-nevada-packaging.trycloudflare.com//LiveApp/streams/ewo-elupdate.m3u8",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "Lucha Libre"
   },
@@ -33,4 +33,5 @@
     "league": "Lucha Libre"
   }
 ]
+
 
