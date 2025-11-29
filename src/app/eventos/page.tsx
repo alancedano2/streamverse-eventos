@@ -4,7 +4,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { UserButton, useUser } from '@clerk/nextjs';
-// Asegúrate de que esta ruta sea correcta para tu data:
 import eventsData from '../../../data/events.json'; 
 
 // =========================================================
@@ -26,14 +25,10 @@ interface Evento {
 // Función para determinar si un evento está "en vivo" (simulación)
 const isLive = (dateStr: string, timeStr: string): boolean => {
   try {
-    // Hora Ficticia (Debes ajustarla si quieres probar un evento "en vivo" o "próximo")
-    const now = new Date('Sat Nov 29 2025 04:31:00 GMT-0400'); // Hora actual para simulación
-    
-    // Convertimos la fecha del evento a un formato que Date pueda parsear
+    const now = new Date('Sat Nov 29 2025 04:31:00 GMT-0400');
     const eventDateTimeString = `${dateStr.replace(/del \d{4}/, `del ${now.getFullYear()}`)} ${timeStr}`;
     const eventDate = new Date(eventDateTimeString.replace(/(del \d{4})/, '$1').replace(/\s*PM/, ' PM').replace(/\s*AM/, ' AM'));
     
-    // Simplemente verifica si ya pasó la hora de inicio
     return now.getTime() >= eventDate.getTime();
   } catch (error) {
     console.error("Error al parsear la fecha del evento:", error);
@@ -64,26 +59,19 @@ export default function EventosPage() {
         
         {/* ENCABEZADO */}
         <header className="flex justify-between items-center mb-12 gap-4 pb-4 border-b border-gray-700/50">
-          <div className="flex items-center gap-6"> 
+          
+          {/* GRUPO IZQUIERDO: Logo y Título */}
+          <div className="flex items-center gap-4"> 
             
             {/* Logo y Enlace al Home */}
             <Link href="/"> 
               <Image
                 src="/images/logo.webp"
                 alt="StreamVerse Logo"
-                width={50}
+                width={300}
                 height={50}
                 className="rounded-full shadow-lg hover:opacity-80 transition"
               />
-            </Link>
-            
-            {/* Nuevo Enlace a /status */}
-            <Link
-              href="/status"
-              className="text-sm font-medium text-gray-400 hover:text-cyan-400 transition duration-200 hidden sm:block border border-gray-700/50 px-3 py-1 rounded-full hover:bg-gray-700/30"
-              title="Ver el estado de los servidores y streams"
-            >
-              Servicio
             </Link>
             
             {/* Título de la Página */}
@@ -94,15 +82,31 @@ export default function EventosPage() {
             </h1>
           </div>
           
-          {/* Componente de Autenticación de Clerk */}
-          {isSignedIn && (
-            <div className="flex items-center gap-4 p-2 rounded-full bg-gray-700/60 border border-gray-600">
-              <span className="text-md font-medium text-gray-300 hidden sm:block">
-                Hola, {user?.firstName || user?.username || 'Usuario'}
-              </span>
-              <UserButton afterSignOutUrl="/login" />
-            </div>
-          )}
+          {/* GRUPO DERECHO: Estado y Usuario (Movimos el Link aquí) */}
+          <div className="flex items-center gap-4">
+              
+              {/* Nuevo Enlace a /status (Esquina Derecha) */}
+              <Link
+                href="/status"
+                className="text-sm font-medium text-gray-400 hover:text-cyan-400 transition duration-200 hidden sm:flex items-center gap-2 border border-gray-700/50 px-3 py-1 rounded-full hover:bg-gray-700/30"
+                title="Ver el estado de los servidores y streams"
+              >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  Estado
+              </Link>
+          
+              {/* Componente de Autenticación de Clerk */}
+              {isSignedIn && (
+                <div className="flex items-center gap-4 p-2 rounded-full bg-gray-700/60 border border-gray-600">
+                  <span className="text-md font-medium text-gray-300 hidden sm:block">
+                    Hola, {user?.firstName || user?.username || 'Usuario'}
+                  </span>
+                  <UserButton afterSignOutUrl="/login" />
+                </div>
+              )}
+          </div>
         </header>
 
         {/* 2. CUADRO DE AVISO DE PROGRAMACIÓN (CONDICIONAL) */}
