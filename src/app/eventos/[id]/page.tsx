@@ -49,13 +49,14 @@ const ClapprPlayer = ({ streamUrl, imageUrl }: { streamUrl: string, imageUrl?: s
         if (streamUrl) loadPlayer();
 
         return () => {
-            if (player && typeof (player as any).destroy === "function") {
-                (player as any).destroy();
-            }
-        };
-    }, [streamUrl, imageUrl]);
-
-    return <div ref={playerContainerRef} className="w-full h-full" />;
+    if (
+        player &&
+        typeof player === "object" &&
+        "destroy" in player &&
+        typeof (player as { destroy: unknown }).destroy === "function"
+    ) {
+        (player as { destroy: () => void }).destroy();
+    }
 };
 
 
