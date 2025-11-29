@@ -17,7 +17,7 @@
     "date": "Sábado 29 de noviembre del 2025",
     "time": "8:00 PM AST",
     "image": "https://i.pinimg.com/736x/bd/48/52/bd4852f2704d7855228f9500b61c70af.jpg",
-    "streamUrl": "https://evanescence-tracks-announce-constantly.trycloudflare.com//LiveApp/streams/badbunny-dtmf.m3u8",
+    "streamUrl": "https://cited-dreams-nevada-packaging.trycloudflare.com//LiveApp/streams/badbunny-dtmf.m3u8",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "Música"
   },
@@ -28,10 +28,11 @@
     "date": "Sábado 29 de noviembre del 2025",
     "time": "8:00 PM AST",
     "image": "/ss2025.jpg",
-    "streamUrl": "https://evanescence-tracks-announce-constantly.trycloudflare.com//LiveApp/streams/wwe-surviorseries2025.m3u8",
+    "streamUrl": "https://cited-dreams-nevada-packaging.trycloudflare.com//LiveApp/streams/wwe-surviorseries2025.m3u8",
     "fallbackMp4Url": "/videos/video_fallback.mp4",
     "league": "Lucha Libre"
   }
 ]
+
 
 
