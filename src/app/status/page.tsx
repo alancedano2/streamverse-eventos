@@ -1,33 +1,31 @@
-// src/app/status/page.tsx
+// src/app/status/page.tsx - ¡CÓDIGO CORREGIDO!
 import Link from 'next/link';
+// Asegúrate de que esta ruta sea correcta para tu proyecto:
 import StatusCard from '@/components/StatusCard'; 
 
 // =========================================================
-// ⚠️ 1. DATOS DE ESTADO (HARDCODEADO PARA FÁCIL ACTUALIZACIÓN) ⚠️
+// ⚠️ 1. DATOS DE ESTADO (QUITAMOS EL 'as const' de los status) ⚠️
 // =========================================================
 const SERVICES = [
   {
     name: 'Streams en Vivo (Player)',
-    // 💡 IMPORTANTE: Si los streams fallan, cambia a 'degradado' o 'inactivo'.
-    status: 'operacional' as const, 
+    // 💡 IMPORTANTE: Ahora el tipo es la unión 'operacional' | 'degradado' | 'inactivo'
+    status: 'operacional', 
     lastUpdate: '29 de noviembre del 2025, 4:15 PM AST',
   },
   {
     name: 'Lista de Eventos (API)',
-    // 💡 Si no se cargan las tarjetas, cambia a 'inactivo'.
-    status: 'operacional' as const, 
+    status: 'operacional', 
     lastUpdate: '29 de noviembre del 2025, 4:15 PM AST',
   },
   {
     name: 'Autenticación (Clerk)',
-    // 💡 Si los usuarios no pueden iniciar sesión, cambia a 'degradado'.
-    status: 'operacional' as const, 
+    status: 'operacional', 
     lastUpdate: '29 de noviembre del 2025, 4:15 PM AST',
   },
   {
     name: 'Formulario de Solicitud',
-    // 💡 Si el envío a Formspree falla, cambia a 'degradado'.
-    status: 'operacional' as const, 
+    status: 'operacional', 
     lastUpdate: '29 de noviembre del 2025, 4:15 PM AST',
   },
 ];
@@ -76,7 +74,7 @@ export default function StatusPage() {
             <StatusCard 
               key={service.name}
               serviceName={service.name}
-              status={service.status}
+              status={service.status as "operacional" | "degradado" | "inactivo"} // Aseguramos el tipo si es necesario
               lastUpdate={service.lastUpdate}
             />
           ))}
