@@ -4,7 +4,7 @@
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import eventsData from '../../../../data/events.json';
-import { useState, useEffect, useRef } from 'react'; 
+import { useEffect, useRef } from 'react'; 
 // Importamos 'dynamic' de next/dynamic
 import dynamic from 'next/dynamic'; 
 // Importaciones de Clappr y HLS ya NO van aquí, van dentro del componente Player dinámico.
@@ -23,45 +23,37 @@ interface Evento {
 
 // 1. Crear un componente funcional que contendrá la lógica de Clappr
 const ClapprPlayer = ({ streamUrl, imageUrl }: { streamUrl: string, imageUrl?: string }) => {
-  
-    // Usamos la importación dinámica aquí. Necesitamos importar Clappr y HLS dentro de 
-    // useEffect para asegurar que solo se carguen en el cliente.
     const playerContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        let player: any | null = null;
+        let player: unknown | null = null;
         
-        // Carga dinámica de las librerías dentro del useEffect (lado cliente)
         const loadPlayer = async () => {
-            // Importaciones que fallaban en el servidor
             const Clappr = (await import('@clappr/player')).default;
             const HlsPlayback = (await import('@clappr/hlsjs-playback')).default;
 
             if (playerContainerRef.current) {
-                player = new Clappr.Player({ 
+                player = new Clappr.Player({
                     source: streamUrl,
                     parent: playerContainerRef.current,
                     autoPlay: true,
                     width: '100%',
                     height: '100%',
-                    plugins: [HlsPlayback], 
-                    poster: imageUrl, 
-                    playbackNotSupportedMessage: 'Tu navegador no soporta la reproducción de este stream.',
+                    plugins: [HlsPlayback],
+                    poster: imageUrl,
+                    playbackNotSupportedMessage: 'Tu navegador no soporta la reproducción de este stream.'
                 });
             }
         };
 
-        if (streamUrl) {
-            loadPlayer();
-        }
+        if (streamUrl) loadPlayer();
 
-        // Función de limpieza
         return () => {
-            if (player) {
-                player.destroy();
+            if (player && typeof (player as any).destroy === "function") {
+                (player as any).destroy();
             }
         };
-    }, [streamUrl, imageUrl]); // Dependencias
+    }, [streamUrl, imageUrl]);
 
     return <div ref={playerContainerRef} className="w-full h-full" />;
 };
