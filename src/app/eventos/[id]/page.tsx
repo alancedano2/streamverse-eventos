@@ -3,10 +3,11 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-// Asegúrate de que VideoPlayer y eventsData existan
-import VideoPlayer from '../../../components/VideoPlayer';
 import eventsData from '../../../../data/events.json';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react'; 
+// Importamos 'dynamic' de next/dynamic
+import dynamic from 'next/dynamic'; 
+// Importaciones de Clappr y HLS ya NO van aquí, van dentro del componente Player dinámico.
 
 interface Evento {
   id: string;
@@ -20,20 +21,72 @@ interface Evento {
   league: string;
 }
 
+// 1. Crear un componente funcional que contendrá la lógica de Clappr
+const ClapprPlayer = ({ streamUrl, imageUrl }: { streamUrl: string, imageUrl?: string }) => {
+  
+    // Usamos la importación dinámica aquí. Necesitamos importar Clappr y HLS dentro de 
+    // useEffect para asegurar que solo se carguen en el cliente.
+    const playerContainerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        let player: any | null = null;
+        
+        // Carga dinámica de las librerías dentro del useEffect (lado cliente)
+        const loadPlayer = async () => {
+            // Importaciones que fallaban en el servidor
+            const Clappr = (await import('@clappr/player')).default;
+            const HlsPlayback = (await import('@clappr/hlsjs-playback')).default;
+
+            if (playerContainerRef.current) {
+                player = new Clappr.Player({ 
+                    source: streamUrl,
+                    parent: playerContainerRef.current,
+                    autoPlay: true,
+                    width: '100%',
+                    height: '100%',
+                    plugins: [HlsPlayback], 
+                    poster: imageUrl, 
+                    playbackNotSupportedMessage: 'Tu navegador no soporta la reproducción de este stream.',
+                });
+            }
+        };
+
+        if (streamUrl) {
+            loadPlayer();
+        }
+
+        // Función de limpieza
+        return () => {
+            if (player) {
+                player.destroy();
+            }
+        };
+    }, [streamUrl, imageUrl]); // Dependencias
+
+    return <div ref={playerContainerRef} className="w-full h-full" />;
+};
+
+
+// 2. Definir el componente dinámico (ClapprPlayer no se renderiza en el servidor)
+const DynamicClapprPlayer = dynamic(() => Promise.resolve(ClapprPlayer), {
+  ssr: false, // ¡ESTO ES CLAVE! Deshabilita el Server-Side Rendering
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center bg-black/80">
+      <p className="text-cyan-400">Cargando reproductor...</p>
+    </div>
+  ),
+});
+
+
 export default function EventoDetailPage() {
   const params = useParams();
-  // El 'id' se extrae de 'params'
   const id = Array.isArray(params.id) ? params.id[0] : params.id; 
-
   const evento = eventsData.find((e: Evento) => e.id === id);
-  // Usa un valor inicial que refleje si hay un stream disponible
-  const [currentStreamUrl, setCurrentStreamUrl] = useState<string | undefined>(evento?.streamUrl);
-
-  // El useEffect para setear el estado inicial solo es necesario si se necesita 
-  // una lógica más compleja o si el 'evento' se carga asíncronamente. 
-  // Para este ejemplo, es más limpio inicializar el estado con el valor del evento.
-
+  
+  const streamToPlay = evento?.streamUrl || evento?.fallbackMp4Url;
+ 
   if (!evento) {
+    // ... (código para evento no encontrado)
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white p-4">
         <h1 className="text-4xl font-bold mb-4 text-cyan-400">Evento no encontrado 😔</h1>
@@ -67,16 +120,17 @@ export default function EventoDetailPage() {
 
       {/* CONTENEDOR PRINCIPAL DE LAS DOS COLUMNAS */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full max-w-7xl">
-        {/* COLUMNA IZQUIERDA: REPRODUCTOR DE VIDEO Y BOTONES DE OPCIÓN */}
+        {/* COLUMNA IZQUIERDA: REPRODUCTOR DE VIDEO */}
         <div className="lg:col-span-2 bg-gray-800 rounded-xl shadow-2xl overflow-hidden border border-gray-700 flex flex-col">
           {/* REPRODUCTOR */}
           <div className="relative w-full pb-[56.25%] bg-black flex items-center justify-center flex-grow">
-            {currentStreamUrl ? (
+            {streamToPlay ? (
               <div className="absolute inset-0">
-                  <VideoPlayer
-                    streamUrl={currentStreamUrl}
-                    fallbackMp4Url={evento.fallbackMp4Url}
-                  />
+                {/* 3. Renderizar el componente dinámico */}
+                <DynamicClapprPlayer 
+                  streamUrl={streamToPlay}
+                  imageUrl={evento.image}
+                />
               </div>
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
@@ -86,37 +140,6 @@ export default function EventoDetailPage() {
               </div>
             )}
           </div>
-
-          {/* BOTONES DE OPCIÓN DE STREAM */}
-          {evento.streamUrl && (
-            <div className="flex justify-center gap-4 p-4 bg-gray-800 border-t border-gray-700/50">
-              {/* Opción 1 (Botón de stream principal) */}
-              <button
-                onClick={() => setCurrentStreamUrl(evento.streamUrl)}
-                className={`py-2 px-8 rounded-full font-bold transition duration-300 ease-in-out text-sm ${
-                  currentStreamUrl === evento.streamUrl
-                    ? 'bg-cyan-600 text-white shadow-xl hover:bg-cyan-500'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                }`}
-              >
-                Opción 1 (Principal)
-              </button>
-
-              {/* Opción de Fallback (Si existe) */}
-              {evento.fallbackMp4Url && (
-                <button
-                  onClick={() => setCurrentStreamUrl(evento.fallbackMp4Url)}
-                  className={`py-2 px-8 rounded-full font-bold transition duration-300 ease-in-out text-sm ${
-                    currentStreamUrl === evento.fallbackMp4Url
-                      ? 'bg-red-600 text-white shadow-xl hover:bg-red-500'
-                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                  }`}
-                >
-                  Opción 2 (Fallback)
-                </button>
-              )}
-            </div>
-          )}
         </div>
 
         {/* COLUMNA DERECHA: CUADRO DE DETALLES DEL EVENTO */}
@@ -150,7 +173,7 @@ export default function EventoDetailPage() {
           </p>
 
           <div className="mt-6 pt-4 border-t border-gray-700/50">
-            {!evento.streamUrl && (
+            {!streamToPlay && (
               <p className="text-yellow-500 text-center text-lg font-medium">
                 No hay streams asociados a este evento.
               </p>
