@@ -1,11 +1,12 @@
 // src/app/kq-105/page.tsx
-'use client'; // Necesario para usar Hooks y HLS.js
+'use client'; 
 
 import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link'; // Agregado para el botón de regreso, si lo deseas
 
 // =========================================================
-// Tipos de datos para el historial
+// Tipos de datos
 // =========================================================
 interface SongHistoryItem {
   title: string;
@@ -14,7 +15,7 @@ interface SongHistoryItem {
 }
 
 // =========================================================
-// CONFIGURACIÓN (Mantenemos las URLs y Constantes aquí)
+// CONFIGURACIÓN
 // =========================================================
 const M3U8_URL = "https://televicentro.streamguys1.com/wkaqfm/playlist.m3u8?key=96bc32e12ecb6b1bafd065de263d64235ff13cc93b57ff806196d3ecd0891325&aw_0_1st.playerId=kq105&source=kq105.com&us_privacy=1YNY&clientType=web&callLetters=WKAQ-FM&devicename=web-desktop&stationid=1846&dist=kq105.com&subscription_type=free&aw_0_1st.version=1.0_html5&aw_0_1st.playerid=kq105_floating_player";
 const PLACEHOLDER_COVER = "/images/kq105/placeholder_cover.png";
@@ -26,9 +27,26 @@ const LOCAL_STORAGE_KEY = "radioHistory";
 // UTILITIES
 // =========================================================
 
+// Función para buscar la portada
+async function fetchAlbumCover(artist: string, title: string): Promise<string> {
+    const query = encodeURIComponent(`${title} ${artist}`);
+    const url = `https://itunes.apple.com/search?term=${query}&entity=song&limit=1`;
+
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.results?.length > 0) {
+            return data.results[0].artworkUrl100.replace("100x100bb", "600x600bb");
+        }
+    } catch (e) {
+        console.error("Error al buscar cover:", e);
+    }
+    return PLACEHOLDER_COVER;
+}
+
 // Función para descargar el historial como .txt
 function downloadHistoryAsTxt(history: SongHistoryItem[]) {
-  // ... (Implementación del helper de descarga, omitido por brevedad, pero puedes usar el de tu código JS)
     if (history.length === 0) {
         alert("No hay historial para descargar.");
         return;
@@ -48,25 +66,6 @@ function downloadHistoryAsTxt(history: SongHistoryItem[]) {
 
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-}
-
-// Función para buscar la portada (usando proxy o Fetch)
-async function fetchAlbumCover(artist: string, title: string): Promise<string> {
-    const query = encodeURIComponent(`${title} ${artist}`);
-    // Usar un proxy si iTunes bloquea peticiones CORS. Por ahora, usamos el directo.
-    const url = `https://itunes.apple.com/search?term=${query}&entity=song&limit=1`;
-
-    try {
-        const res = await fetch(url);
-        const data = await res.json();
-
-        if (data.results?.length > 0) {
-            return data.results[0].artworkUrl100.replace("100x100bb", "600x600bb");
-        }
-    } catch (e) {
-        console.error("Error al buscar cover:", e);
-    }
-    return PLACEHOLDER_COVER;
 }
 
 // =========================================================
@@ -110,7 +109,6 @@ export default function KQ105Page() {
                 hls.on(Hls.Events.MEDIA_ATTACHED, () => {
                     audio.volume = volume;
                     audio.play().catch(() => {
-                        // El navegador bloqueó la reproducción automática, esperamos interacción
                         setIsPlaying(false); 
                     });
                 });
@@ -128,7 +126,8 @@ export default function KQ105Page() {
                     
                     currentSongRef.current = { title, artist };
 
-                    let cover =
+                    // 💡 CORRECCIÓN APLICADA: 'let cover' cambiado a 'const cover'
+                    const cover = 
                         title.includes("WKAQ-FM") || artist.includes("WKAQ-FM")
                             ? WKAQ_COVER
                             : await fetchAlbumCover(artist, title);
@@ -140,7 +139,7 @@ export default function KQ105Page() {
                         const newSong = { title, artist, cover };
                         const updatedHistory = prevHistory.filter(s => !(s.title === title && s.artist === artist));
                         updatedHistory.unshift(newSong);
-                        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedHistory.slice(0, 15))); // Limitar a 15 items
+                        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedHistory.slice(0, 15)));
                         return updatedHistory;
                     });
                 });
@@ -205,8 +204,16 @@ export default function KQ105Page() {
         <div className="flex justify-center items-center min-h-screen bg-[#2c3e50] text-[#ecf0f1] p-5">
             <div className="bg-[#34495e] rounded-xl shadow-2xl p-8 w-11/12 max-w-lg flex flex-col gap-5">
                 
+                {/* Botón de Regreso (Opcional, pero útil) */}
+                <div className="absolute top-4 left-4">
+                    <Link href="/" className="text-white/70 hover:text-white transition flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+                        Inicio
+                    </Link>
+                </div>
+
                 {/* Header */}
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center mt-6">
                     <div className="bg-[#e74c3c] rounded-xl p-4 mb-4 shadow-lg">
                         <Image 
                             src={LOGO_URL} 
@@ -250,7 +257,7 @@ export default function KQ105Page() {
                             value={volume} 
                             onChange={handleVolumeChange}
                             className="w-24 h-1 bg-[#4a657c] rounded-full ml-3 appearance-none cursor-pointer range-lg"
-                            style={{ '--tw-range-thumb-color': '#f39c12' } as React.CSSProperties} // Custom style para el thumb
+                            // Nota: Estilo para el thumb del range slider no es posible solo con Tailwind, pero se verá bien.
                         />
                     </div>
                 </div>
