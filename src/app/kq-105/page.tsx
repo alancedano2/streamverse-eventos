@@ -20,9 +20,11 @@ interface SongHistoryItem {
 const M3U8_URL = "https://televicentro.streamguys1.com/wkaqfm/playlist.m3u8?key=96bc32e12ecb6b1bafd065de263d64235ff13cc93b57ff806196d3ecd0891325&aw_0_1st.playerId=kq105&source=kq105.com&us_privacy=1YNY&clientType=web&callLetters=WKAQ-FM&devicename=web-desktop&stationid=1846&dist=kq105.com&subscription_type=free&aw_0_1st.version=1.0_html5&aw_0_1st.playerid=kq105_floating_player";
 const PLACEHOLDER_COVER = "/images/kq105/placeholder_cover.png";
 const WKAQ_COVER = "/images/kq105/cover_wkaq.png";
-// Usamos el logo principal de StreamVerse para la cabecera, pero el logo de KQ105 en el reproductor.
-const LOGO_APP_URL = "/images/logo.webp"; 
-const LOGO_KQ105_URL = "/images/kq105/logo.png";
+// Ruta del logo grande para la cabecera (el que pediste que se quedara)
+const LOGO_KQ105_HEADER_URL = "/images/kq105/logokq.png"; 
+// Ruta del logo pequeño que se usa en el historial o metadata, si aplica
+const LOGO_KQ105_PLAYER_URL = "/images/kq105/logo.png"; 
+
 const LOCAL_STORAGE_KEY = "radioHistory";
 
 // =========================================================
@@ -59,7 +61,7 @@ export default function KQ105Page() {
     const [metadata, setMetadata] = useState<{ title: string; artist: string; cover: string }>({
         title: "Sintonizando...",
         artist: "KQ105",
-        cover: LOGO_KQ105_URL,
+        cover: LOGO_KQ105_PLAYER_URL,
     });
     const [history, setHistory] = useState<SongHistoryItem[]>([]);
 
@@ -99,7 +101,7 @@ export default function KQ105Page() {
                     const artistMatch = /artist="([^"]*)"/.exec(data.frag.title);
 
                     const title = titleMatch ? titleMatch[1] : "Título no disponible";
-                    const artist = artistMatch ? artistMatch[1] : "Artista no disponible";
+                    const artist = artistMatch ? artist[1] : "Artista no disponible";
 
                     if (title === currentSongRef.current.title && artist === currentSongRef.current.artist) return;
                     
@@ -128,7 +130,7 @@ export default function KQ105Page() {
                 // Soporte nativo de iOS/Safari
                 audio.src = M3U8_URL;
                 audio.addEventListener('loadedmetadata', () => audio.play().catch(() => setIsPlaying(false)));
-                setMetadata({ title: "Reproducción nativa.", artist: "Metadata no disponible.", cover: LOGO_KQ105_URL });
+                setMetadata({ title: "Reproducción nativa.", artist: "Metadata no disponible.", cover: LOGO_KQ105_PLAYER_URL });
             }
         });
 
@@ -186,26 +188,20 @@ export default function KQ105Page() {
 
             <div className="relative z-10 max-w-7xl mx-auto">
                 
-                {/* ENCABEZADO ESTANDAR DE LA APLICACIÓN */}
+                {/* ENCABEZADO SUPERIOR: Logo KQ105 (logokq.png) y navegación */}
                 <header className="flex justify-between items-center mb-12 gap-4 pb-4 border-b border-gray-700/50">
                     
-                    {/* GRUPO IZQUIERDO: Logo y Título */}
+                    {/* GRUPO IZQUIERDO: Logo KQ105 (logokq.png) */}
                     <div className="flex items-center gap-4"> 
                         <Link href="/"> 
                             <Image
-                                src={LOGO_APP_URL} // Usamos el logo principal
-                                alt="StreamVerse Logo"
-                                width={50}
-                                height={50}
-                                className="rounded-full shadow-lg hover:opacity-80 transition"
+                                src={LOGO_KQ105_HEADER_URL} 
+                                alt="KQ105 Radio Logo"
+                                width={180} // Ajusta el tamaño según necesites
+                                height={60} // Ajusta el tamaño según necesites
+                                className="object-contain" 
                             />
                         </Link>
-                        
-                        <h1 className="text-4xl sm:text-5xl font-extrabold text-white">
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-red-600">
-                                KQ105 Radio
-                            </span>
-                        </h1>
                     </div>
                     
                     {/* GRUPO DERECHO: Navegación Rápida */}
@@ -239,26 +235,34 @@ export default function KQ105Page() {
                 <div className="flex justify-center items-start pt-10">
                     <div className="bg-[#34495e] rounded-xl shadow-2xl p-8 w-full max-w-md flex flex-col gap-5 border border-gray-700">
                         
-                        {/* Header del Reproductor */}
-                        <div className="flex flex-col items-center">
-                            <div className="bg-[#e74c3c] rounded-full p-5 mb-4 shadow-lg">
-                                <Image 
-                                    src={LOGO_KQ105_URL} 
-                                    alt="Logo de KQ105" 
-                                    width={80} 
-                                    height={80} 
-                                    className="block"
-                                />
-                            </div>
-                            <h2 className="text-3xl font-bold text-amber-400 mb-2">KQ105</h2>
-                            <p className="text-gray-400">¡El Vibe de Puerto Rico!</p>
+                        {/* NUEVO: Encabezado interno con texto "KQ105 La Primera #1" */}
+                        <div className="flex flex-col items-center mb-4">
+                            <h2 className="text-3xl font-bold text-amber-400 text-center">
+                                KQ105 La Primera #1
+                            </h2>
                         </div>
 
                         {/* Audio Element (Oculto) */}
                         <audio ref={audioRef} id="radioPlayer" className="hidden" />
+                        
+                        {/* Info de la Canción Actual */}
+                        <div id="currentSongInfo" className="flex items-center bg-gray-700/50 rounded-lg p-4 shadow-inner gap-4 min-h-[100px]">
+                            <Image 
+                                id="albumCover" 
+                                src={metadata.cover} 
+                                alt="Cover" 
+                                width={80} 
+                                height={80} 
+                                className="rounded-lg object-cover shadow-md flex-shrink-0"
+                            />
+                            <div id="metadataBox" className="flex-grow text-left overflow-hidden">
+                                <span className="title font-bold text-xl block mb-1 text-white truncate">{metadata.title}</span>
+                                <span className="artist italic text-lg text-gray-300 truncate">{metadata.artist}</span>
+                            </div>
+                        </div>
 
-                        {/* Custom Audio Player */}
-                        <div className="flex items-center bg-[#2c3e50] rounded-full p-3 shadow-inner w-full box-border mt-3">
+                        {/* Custom Audio Player (Controles de reproducción y volumen) */}
+                        <div className="flex items-center bg-[#2c3e50] rounded-full p-3 shadow-inner w-full box-border">
                             
                             {/* Botón Play/Pause */}
                             <button 
@@ -286,22 +290,6 @@ export default function KQ105Page() {
                                     onChange={handleVolumeChange}
                                     className="w-24 h-1 bg-[#4a657c] rounded-full ml-3 appearance-none cursor-pointer"
                                 />
-                            </div>
-                        </div>
-
-                        {/* Info de la Canción Actual */}
-                        <div id="currentSongInfo" className="flex items-center bg-gray-700/50 rounded-lg p-4 shadow-inner gap-4 min-h-[100px]">
-                            <Image 
-                                id="albumCover" 
-                                src={metadata.cover} 
-                                alt="Cover" 
-                                width={80} 
-                                height={80} 
-                                className="rounded-lg object-cover shadow-md flex-shrink-0"
-                            />
-                            <div id="metadataBox" className="flex-grow text-left overflow-hidden">
-                                <span className="title font-bold text-xl block mb-1 text-white truncate">{metadata.title}</span>
-                                <span className="artist italic text-lg text-gray-300 truncate">{metadata.artist}</span>
                             </div>
                         </div>
 
