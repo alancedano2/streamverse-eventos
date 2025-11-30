@@ -68,7 +68,7 @@ export default function EventosPage() {
               <Image
                 src="/images/logo.webp"
                 alt="StreamVerse Logo"
-                width={50}
+                width={300}
                 height={50}
                 className="rounded-full shadow-lg hover:opacity-80 transition"
               />
@@ -229,3 +229,4 @@ export default function EventosPage() {
     </div>
   );
 }
+
