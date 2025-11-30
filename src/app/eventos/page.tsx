@@ -1,5 +1,5 @@
 // src/app/eventos/page.tsx
-'use client';
+'use client'; 
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -68,7 +68,7 @@ export default function EventosPage() {
               <Image
                 src="/images/logo.webp"
                 alt="StreamVerse Logo"
-                width={300}
+                width={50}
                 height={50}
                 className="rounded-full shadow-lg hover:opacity-80 transition"
               />
@@ -82,10 +82,22 @@ export default function EventosPage() {
             </h1>
           </div>
           
-          {/* GRUPO DERECHO: Estado y Usuario (Movimos el Link aquí) */}
+          {/* GRUPO DERECHO: Estado, Radio y Usuario */}
           <div className="flex items-center gap-4">
+
+              {/* 🎧 NUEVO ENLACE: KQ105 Radio */}
+              <Link
+                href="/kq-105"
+                className="text-sm font-medium text-amber-400 hover:text-amber-300 transition duration-200 hidden sm:flex items-center gap-2 border border-gray-700/50 px-3 py-1 rounded-full bg-amber-900/30 hover:bg-amber-800/50"
+                title="Escuchar Radio KQ105 en vivo"
+              >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
+                  </svg>
+                  KQ105
+              </Link>
               
-              {/* Nuevo Enlace a /status (Esquina Derecha) */}
+              {/* Enlace a /status (Esquina Derecha) */}
               <Link
                 href="/status"
                 className="text-sm font-medium text-gray-400 hover:text-cyan-400 transition duration-200 hidden sm:flex items-center gap-2 border border-gray-700/50 px-3 py-1 rounded-full hover:bg-gray-700/30"
