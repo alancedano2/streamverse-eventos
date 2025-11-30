@@ -20,9 +20,9 @@ interface SongHistoryItem {
 const M3U8_URL = "https://televicentro.streamguys1.com/wkaqfm/playlist.m3u8?key=96bc32e12ecb6b1bafd065de263d64235ff13cc93b57ff806196d3ecd0891325&aw_0_1st.playerId=kq105&source=kq105.com&us_privacy=1YNY&clientType=web&callLetters=WKAQ-FM&devicename=web-desktop&stationid=1846&dist=kq105.com&subscription_type=free&aw_0_1st.version=1.0_html5&aw_0_1st.playerid=kq105_floating_player";
 const PLACEHOLDER_COVER = "/images/kq105/placeholder_cover.png";
 const WKAQ_COVER = "/images/kq105/cover_wkaq.png";
-// Ruta del logo grande para la cabecera (el que pediste que se quedara)
+// Ruta del logo grande para la cabecera (logokq.png)
 const LOGO_KQ105_HEADER_URL = "/images/kq105/logokq.png"; 
-// Ruta del logo pequeño que se usa en el historial o metadata, si aplica
+// Ruta del logo pequeño (se mantiene para la metadata en caso de que no haya cover)
 const LOGO_KQ105_PLAYER_URL = "/images/kq105/logo.png"; 
 
 const LOCAL_STORAGE_KEY = "radioHistory";
@@ -63,7 +63,10 @@ export default function KQ105Page() {
         artist: "KQ105",
         cover: LOGO_KQ105_PLAYER_URL,
     });
-    const [history, setHistory] = useState<SongHistoryItem[]>([]);
+
+    // Aunque ya no mostramos el historial, lo mantenemos internamente
+    // para que la lógica de la radio pueda identificar la canción actual.
+    const [history, setHistory] = useState<SongHistoryItem[]>([]); 
 
     const currentSongRef = useRef({ title: "", artist: "" });
 
@@ -72,7 +75,8 @@ export default function KQ105Page() {
         const audio = audioRef.current;
         if (!audio) return;
 
-        // Carga el historial al iniciar
+        // Carga el historial al iniciar (manteniendo la lógica de localStorage
+        // aunque no se muestre en el UI, ayuda al trackeo interno)
         const savedHistory = localStorage.getItem(LOCAL_STORAGE_KEY);
         if (savedHistory) {
             try {
@@ -101,7 +105,8 @@ export default function KQ105Page() {
                     const artistMatch = /artist="([^"]*)"/.exec(data.frag.title);
 
                     const title = titleMatch ? titleMatch[1] : "Título no disponible";
-                    const artist = artistMatch ? artist[1] : "Artista no disponible";
+                    // CORRECCIÓN APLICADA: 'artistMatch[1]' en lugar de 'artist[1]'
+                    const artist = artistMatch ? artistMatch[1] : "Artista no disponible"; 
 
                     if (title === currentSongRef.current.title && artist === currentSongRef.current.artist) return;
                     
@@ -114,7 +119,7 @@ export default function KQ105Page() {
 
                     setMetadata({ title, artist, cover });
 
-                    // Actualizar Historial
+                    // Actualizar Historial (Solo para el localStorage/trackeo interno)
                     setHistory(prevHistory => {
                         const newSong = { title, artist, cover };
                         const updatedHistory = prevHistory.filter(s => !(s.title === title && s.artist === artist));
@@ -235,7 +240,7 @@ export default function KQ105Page() {
                 <div className="flex justify-center items-start pt-10">
                     <div className="bg-[#34495e] rounded-xl shadow-2xl p-8 w-full max-w-md flex flex-col gap-5 border border-gray-700">
                         
-                        {/* NUEVO: Encabezado interno con texto "KQ105 La Primera #1" */}
+                        {/* Encabezado interno con texto "KQ105 La Primera #1" */}
                         <div className="flex flex-col items-center mb-4">
                             <h2 className="text-3xl font-bold text-amber-400 text-center">
                                 KQ105 La Primera #1
@@ -293,23 +298,7 @@ export default function KQ105Page() {
                             </div>
                         </div>
 
-                        {/* Historial de Canciones */}
-                        <div id="songHistory" className="bg-gray-700/50 rounded-lg p-4 shadow-inner max-h-64 overflow-y-auto text-left">
-                            <h4 className="m-0 mb-3 text-amber-400 border-b border-white/10 pb-1 font-semibold">Historial Reciente</h4>
-                            {history.length === 0 ? (
-                                <p className="text-sm text-gray-400">Cargando historial...</p>
-                            ) : (
-                                history.slice(1, 6).map((song, index) => ( // Muestra solo las últimas 5 canciones (excluyendo la actual)
-                                    <div key={index} className="flex items-center mb-3 gap-3 opacity-80">
-                                        <Image src={song.cover} alt="cover" width={30} height={30} className="rounded-md object-cover" />
-                                        <div className='text-sm'>
-                                            <span className="history-item-title font-semibold block text-white">{song.title}</span>
-                                            <span className="history-item-artist text-xs text-gray-400 block">{song.artist}</span>
-                                        </div>
-                                    </div>
-                                ))
-                            )}
-                        </div>
+                        {/* EL HISTORIAL DE CANCIONES HA SIDO REMOVIDO COMPLETAMENTE */}
                     </div>
                 </div>
 
